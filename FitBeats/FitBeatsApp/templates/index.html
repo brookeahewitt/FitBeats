@@ -58,6 +58,12 @@
 </head>
 
 <body>
+    {% load socialaccount %}
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+    </form>
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
         <p class="description">A workout for your brain!</p>
@@ -102,5 +108,8 @@
             container.appendChild(row);
         }
     </script>
+    {% else %}
+    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    {% endif %}
 </body>
 </html>
