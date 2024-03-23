@@ -1,3 +1,4 @@
+import random
 from django.shortcuts import render
 from dotenv import load_dotenv
 import os
@@ -32,29 +33,56 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
+def generate_playlist(target_duration, max_iterations):
+    playlist = []
+    current_duration = 0
+    iteration = 0
 
-def search_for_track(token, track_name):
-    url = url = "https://api.spotify.com/v1/search"
+    while iteration < max_iterations:
+        # Retrieve a batch of candidate tracks
+        candidate_tracks = get_recommendations(token, ['pop'], 120, 140)
+        random.shuffle(candidate_tracks)
+
+        for track in candidate_tracks:
+            if current_duration + track_duration_mins(track) <= target_duration + 1:
+                playlist.append(track)
+                current_duration += track_duration_mins(track)
+
+        # Check if playlist duration is within acceptable range
+        if target_duration - 1 <= current_duration <= target_duration + 1:
+            break  # Exit loop if playlist duration is within acceptable range
+
+        iteration += 1
+
+    return playlist
+
+def track_duration_mins(track):
+    # Calculate the duration of the track
+    return track["duration_ms"] / 60000
+
+
+def get_recommendations(token, genres, min_tempo, max_tempo):
+    url = "https://api.spotify.com/v1/recommendations"
     headers = get_auth_header(token)
-    query = {"q": track_name, "type": "track", "limit": 1}
+    query = {
+        "seed_genres": ",".join(genres),
+        "min_tempo": min_tempo,
+        "max_tempo": max_tempo,
+        "min_popularity": 50,
+        "available_markets": "US",
+        "limit": 100,
+    }
 
     result = get(url, headers=headers, params=query)
     json_result = json.loads(result.content)
-    return json_result
+    tracks = json_result["tracks"]
+    return tracks
 
 
-def get_audio_features(token, track_id):
-    url = f"https://api.spotify.com/v1/audio-features/{track_id}"
-    headers = get_auth_header(token)
-
-    result = get(url, headers=headers)
-    json_result = json.loads(result.content)
-    return json_result
 
 
 token = get_token()
-song_info = search_for_track(token, "Stairway to Heaven")
+playlist = generate_playlist(10, 10)
 
-track_id = song_info["tracks"]["items"][0]["id"]
-audio_features = get_audio_features(token, track_id)
-print(audio_features)
+for track in playlist:
+    print(track["name"], track["duration_ms"])
