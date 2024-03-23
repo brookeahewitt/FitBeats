@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercises</title>
+    <style>
+    body {
+        background-color: #faf9f6;
+    }
+        .row {
+          display: flex;
+        }
+
+        .col {
+          flex: 1;
+          margin: 0 50px;
+        }
+
+        .box {
+          height: 250px;
+          background-color: #ccc;
+          border-radius: 10px;
+        }
+
+        .text {
+          text-align: center;
+        }
+
+        .row:not(:last-child) {
+          margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Excersises</h1>
+    <div class="container"></div>
+
+    <script>
+        const numRows = 4;
+        const container = document.querySelector('.container');
+
+        for (let i = 0; i < numRows; i++) {
+            const row = document.createElement('div');
+            row.classList.add('row');
+
+            for (let j = 0; j < 4; j++) {
+                const col = document.createElement('div');
+                col.classList.add('col');
+
+
+                const box = document.createElement('div');
+                box.classList.add('box');
+
+
+                const playlistName = document.createElement('div');
+                playlistName.classList.add('text');
+                playlistName.textContent = 'Playlist Name';
+
+                const username = document.createElement('div');
+                username.classList.add('text');
+                username.textContent = 'Username';
+
+
+                col.appendChild(box);
+                col.appendChild(playlistName);
+                col.appendChild(username);
+
+
+                row.appendChild(col);
+            }
+
+
+            container.appendChild(row);
+        }
+    </script>
+</body>
+</html>
