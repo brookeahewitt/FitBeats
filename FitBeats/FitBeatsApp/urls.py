@@ -5,6 +5,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('exercises/', views.exercises, name='exercises')
-
+    path('generate', views.generate, name="generate"),
 ]

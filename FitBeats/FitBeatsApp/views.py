@@ -89,9 +89,14 @@ for track in playlist:
     print(track["name"], track["duration_ms"])
 
 
+
 def index(request):
     return render(request, 'index.html')
+
 
 def exercises(request):
     return render(request, 'exercises.html')
 
+
+def generate(request):
+    return render(request, 'generate.html')
