@@ -93,15 +93,15 @@ for track in playlist:
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'request': request})
 
 
 def exercises(request):
-    return render(request, 'exercises.html')
+    return render(request, 'exercises.html', {'request': request})
 
 
 def generate(request):
-    return render(request, 'generate.html')
+    return render(request, 'generate.html', {'request': request})
 
 def logout_view(request):
     logout(request)
