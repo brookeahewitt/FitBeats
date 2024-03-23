@@ -88,9 +88,6 @@
     {% load socialaccount %}
     {% if user.is_authenticated %}
     {% include 'navbar.html' %}
-    <form action="{% url 'logout' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
     </form>
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
