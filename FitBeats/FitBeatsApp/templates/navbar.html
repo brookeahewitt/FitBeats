@@ -90,28 +90,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" style="margin-right: 30px">
-                <!-- Explore Link -->
+
                 <li class="nav-item {% if request.path == '/' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'index' %}">Explore</a>
                 </li>
 
-                <!-- Generate Link -->
                 <li class="nav-item {% if request.path == '/generate' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'generate' %}">Generate</a>
                 </li>
 
-                <!-- Activity Link -->
                 <li class="nav-item {% if request.path == '/activity' %}active{% endif %}">
                     <a class="nav-link" href="#">Activity</a>
                 </li>
 
-                <!-- Info Link -->
                 <li class="nav-item {% if request.path == '/info' %}active{% endif %}">
                     <a class="nav-link" href="{% url 'info' %}">Info</a>
                 </li>
 
-                <li class="nav-item">
-                   <a style="float:right;" class = "navdesign navspecial" href="{% url 'logout' %}"></a>
+                <li class="nav-item {% if request.path == '/info' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
             </ul>
         </div>
