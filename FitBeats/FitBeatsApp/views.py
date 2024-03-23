@@ -103,6 +103,8 @@ def exercises(request):
 def generate(request):
     return render(request, 'generate.html', {'request': request})
 
+def info(request):
+    return render(request, 'info.html', {'request': request})
 def logout_view(request):
     logout(request)
     return redirect('index')
