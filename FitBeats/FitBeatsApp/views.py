@@ -1,5 +1,6 @@
 import random
 from django.shortcuts import render
+
 from dotenv import load_dotenv
 import os
 import base64
@@ -86,3 +87,11 @@ playlist = generate_playlist(10, 10)
 
 for track in playlist:
     print(track["name"], track["duration_ms"])
+
+
+def index(request):
+    return render(request, 'index.html')
+
+def exercises(request):
+    return render(request, 'exercises.html')
+
