@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('generate', views.generate, name="generate"),
-    #path('logout', LogoutView.as_view()),
+    path('logout/', views.logout_view, name='logout'),
     path('accounts/', include('allauth.urls')),
 
 ]
