@@ -34,6 +34,8 @@
 </head>
 
 <body>
+    {% load socialaccount %}
+    {% if user.is_authenticated %}
     <h1>Explore</h1>
     <div class="container"></div>
 
@@ -75,5 +77,8 @@
             container.appendChild(row);
         }
     </script>
+    {% else %}
+    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    {% endif %}
 </body>
 </html>
