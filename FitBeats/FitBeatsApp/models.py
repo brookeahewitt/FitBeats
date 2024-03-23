@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+class Song(models.Model):
+    song_name = models.CharField(max_length=200)
+    artist_name = models.CharField(max_length=200)
+    duration = models.DecimalField(max_digits=10, decimal_places=2)
+    cover_art_link = models.URLField(max_length=400)
+    preview_sound = models.URLField(max_length=400)
+
+
+class Playlist(models.Model):
+    songs = models.ManyToManyField(Song, related_name='songs_in_playlist', blank=True)
+
