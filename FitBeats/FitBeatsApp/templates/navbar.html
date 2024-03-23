@@ -91,18 +91,26 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" style="margin-right: 30px">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Explore</a>
+                <!-- Explore Link -->
+                <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'index' %}">Explore</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Generate</a>
+
+                <!-- Generate Link -->
+                <li class="nav-item {% if request.path == '/generate' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'generate' %}">Generate</a>
                 </li>
-                <li class="nav-item">
+
+                <!-- Activity Link -->
+                <li class="nav-item {% if request.path == '/activity/' %}active{% endif %}">
                     <a class="nav-link" href="#">Activity</a>
                 </li>
-                <li class="nav-item">
+
+                <!-- Info Link -->
+                <li class="nav-item {% if request.path == '/info/' %}active{% endif %}">
                     <a class="nav-link" href="#">Info</a>
                 </li>
+
             </ul>
         </div>
     </nav>
