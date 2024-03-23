@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'myapi',
+    'FitBeatsApp',
 ]
 
 MIDDLEWARE = [
@@ -126,4 +126,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ORIGINI_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
