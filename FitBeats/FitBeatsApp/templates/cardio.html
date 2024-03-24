@@ -239,6 +239,23 @@
 
 
 <script>
+        // Function to update the max attribute of num_breaks input
+        function updateMaxNumBreaks() {
+            const numCheckboxesSelected = document.querySelectorAll('.checkbox input[type="checkbox"]:checked').length;
+            const numBreaksInput = document.getElementById('num_breaks');
+            numBreaksInput.max = numCheckboxesSelected > 0 ? numCheckboxesSelected - 1 : 0;
+        }
+
+        // Event listener to update max num_breaks on checkbox selection
+        document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateMaxNumBreaks);
+        });
+
+        // Initial update on page load
+        updateMaxNumBreaks();
+    </script>
+
+<script>
     document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(radio => {
         radio.addEventListener('click', function() {
             if (!this.checked) return;
@@ -247,6 +264,7 @@
         });
     });
 </script>
+
 
     <script>
     document.getElementById('addButton').addEventListener('click', function() {
@@ -269,3 +287,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
