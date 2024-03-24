@@ -160,9 +160,13 @@ def completeWorkout(request):
 def submit_workout(request):
     if request.method == 'POST':
         # Process the form data
+        print("REQUEST",request)
         duration = request.POST.get('duration')
+        print("DURATION:",duration)
         intensity = request.POST.get('intensity')
+        print("INTENSITY", intensity)
         selected_exercises = request.POST.getlist('selectedExercises')
+        print("SELECT EXERCISES", selected_exercises)
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
         exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
         print(exercise_names)
@@ -170,15 +174,18 @@ def submit_workout(request):
         playlist = Playlist.objects.create(name="Custom Playlist")
 
         entire_workout = Entire_Workout.objects.create(
-
-            playlist = playlist
-
+            playlist = playlist,
+            duration = duration,
+            intensity = intensity
         )
 
         for exercise_name in exercise_names:
             print(exercise_name)
             # Get or create the Exercise instance
-            exercise, _ = Exercise.objects.get_or_create(exercise_name=exercise_name)
+            exercise, _ = Exercise.objects.get_or_create(
+                exercise_name=exercise_name,
+                entire_workout=entire_workout
+            )
 
         # Redirect to a success page
         return HttpResponseRedirect(reverse('generate'))
