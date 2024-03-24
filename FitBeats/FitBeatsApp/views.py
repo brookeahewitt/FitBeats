@@ -10,7 +10,7 @@ import os
 import base64
 from requests import post, get
 import json
-import logging
+import random
 
 from .models import Playlist, Entire_Workout, Exercise, Song
 
@@ -162,6 +162,7 @@ def submit_workout(request):
         # Process the form data
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
+        num_breaks = request.POST.get('num_breaks')
         selected_exercises = request.POST.getlist('selectedExercises')
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
         exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
@@ -182,8 +183,18 @@ def submit_workout(request):
                 entire_workout=entire_workout
             )
 
+        if num_breaks != 0:
+            num_exercises = len(exercise_names)
+            for i in num_breaks:
+                random_num = random.randint(1, num_exercises-1)
+                exercise_names.insert(random_num, Exercise.objects.get_or_create(
+                    exercise_name="Break",
+                    entire_workout=entire_workout
+                ))
+
+        # Calculate songs for playlist here and add it please thanks!
         # Redirect to a success page
-        return HttpResponseRedirect(reverse('generate'))
+        return render(request, 'completeWorkout.html', {'workout': entire_workout, 'exercises': exercise_names})
 
         # If the request method is not POST, render the form again or return an appropriate response
     return render(request, 'generate.html')

@@ -218,11 +218,17 @@
   <form id="workoutForm" action="/submit_workout/" method="post">
       {% csrf_token %}
     <div id="duration" class="fade-content">
-        <!-- Duration input -->
-        <div class="form-outline" style="display: flex; justify-content: center; align-items: center;">
-            <input type="number" id="typeNumber" name="duration" min="0" class="form-control" style="margin-right: 10px;">
-            <label class="form-label" for="typeNumber" style="margin-left: 10px;">Minutes</label>
-        </div>
+    <!-- Duration input -->
+    <div class="form-outline" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <label class="form-label" for="typeNumber">Duration</label>
+        <input type="number" id="typeNumber" name="duration" min="0" class="form-control">
+    </div>
+    <br><br>
+    <div class="form-outline" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <label class="form-label" for="num_breaks">Number of Breaks</label>
+        <input type="number" id="num_breaks" name="num_breaks" min="0" max="<MAX_NUMBER>" class="form-control">
+    </div>
+</div>
 
         <!-- Intensity input -->
         <div class="container">
