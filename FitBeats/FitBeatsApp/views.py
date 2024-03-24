@@ -1,7 +1,7 @@
 import random
 
 from django.contrib.auth import logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -41,8 +41,8 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-def generate_playlist(target_duration, max_iterations, token):
 
+def generate_playlist(target_duration, max_iterations, token):
     playlist = []
     current_duration = 0
     iteration = 0
@@ -66,6 +66,7 @@ def generate_playlist(target_duration, max_iterations, token):
 
     return playlist
 
+
 def make_songs(playlist, playlist_name):
     song_list = []
     images = []
@@ -80,7 +81,7 @@ def make_songs(playlist, playlist_name):
             duration=duration,
             cover_art_link=track["album"]["images"][0]["url"],
             artist_name=track["artists"][0]["name"],
-            preview_sound =track['preview_url']
+            preview_sound=track['preview_url']
         )
 
         created_playlist.songs.add(song)
@@ -127,16 +128,15 @@ def get_recommendations(token, genres, min_tempo, max_tempo):
 
 
 def index(request):
-    playlists = Playlist.objects.all()
-    cover_art_urls = []
+    playlists = Playlist.objects.filter(songs__isnull=False, songs__cover_art_link__isnull=False)
 
     for playlist in playlists:
-        # Fetch the first four songs in the playlist to use their cover art links
-        songs = playlist.songs_in_playlist.all()[:4]
-        for song in songs:
-            cover_art_urls.append(song.cover_art_link)
+        first_song = playlist.songs.first()
+        if first_song:
+            playlist.cover_image_url = first_song.cover_art_link
 
-    return render(request, 'index.html', {'paylists': playlists, 'cover_art_urls': cover_art_urls, 'request': request})
+    return render(request, 'index.html', {'playlists': playlists})
+
 
 # token = get_token()
 # playlist = generate_playlist(10, 10)
@@ -148,11 +148,6 @@ def index(request):
 #     images.append(track["album"]["images"][0]["url"])
 #
 # images = images[:4]
-
-
-def index(request):
-    # images_json = json.dumps(images)
-    return render(request, 'index.html', {'request': request})
 
 
 def exercises(request):
@@ -213,6 +208,8 @@ def submit_workout(request):
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
         genre = request.POST.get('selectedGenre')
+        playlist_name = request.POST.get('playlist_name')
+        print("PLAYLIST NAME:", playlist_name)
         num_breaks = int(request.POST.get('num_breaks'))
         selected_exercises = request.POST.getlist('selectedExercises')
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
@@ -220,7 +217,7 @@ def submit_workout(request):
         # Create a new playlist
         token = get_token()
         playlist = generate_playlist(int(duration), 10, token)  # Adjust parameters as needed
-        songs, created_playlist = make_songs(playlist, "Custom Playlist")
+        songs, created_playlist = make_songs(playlist, playlist_name)
 
         entire_workout = Entire_Workout.objects.create(
             playlist=created_playlist,
@@ -236,6 +233,9 @@ def submit_workout(request):
                 exercise_names.insert(random_num, "Break " + str(val))
                 val += 1
 
+        exercise_names.insert(0, "Warm Up")
+        exercise_names.append("Cool Down")
+
         for exercise_name in exercise_names:
             # Get or create the Exercise instance
             exercise, _ = Exercise.objects.get_or_create(
@@ -243,16 +243,34 @@ def submit_workout(request):
                 entire_workout=entire_workout
             )
 
-
         total_duration = sum(song.duration for song in created_playlist.songs.all()) if playlist else 0
 
-        return render(request, 'completeWorkout.html', {'workout': entire_workout, 'exercises': exercise_names, 'playlist': entire_workout.playlist, 'entire_duration': total_duration})
+        return render(request, 'completeWorkout.html',
+                      {'workout': entire_workout, 'exercises': exercise_names, 'playlist': entire_workout.playlist,
+                       'entire_duration': total_duration})
 
         # If the request method is not POST, render the form again or return an appropriate response
     return render(request, 'generate.html')
 
 
+def playlist_detail(request):
+    # Retrieve the playlist object from the database
+    if request.method == 'POST':
+        playlist_id = request.POST.get("playlist_id")
+
+        playlist = get_object_or_404(Playlist, id=int(playlist_id))
+
+        entire_workout = Entire_Workout.objects.filter(playlist=playlist).first()
+
+        print(entire_workout)
+        total_duration = entire_workout.duration
+        exercise_names = list(entire_workout.exercise_set.values_list('exercise_name', flat=True))
+
+    # Pass the playlist object to the template
+        return render(request, 'completeWorkout.html',
+                  {'workout': entire_workout, 'exercises': exercise_names, 'playlist': entire_workout.playlist,
+                   'entire_duration': total_duration})
+
 
 def activity(request):
-    return render(request, 'activity.html', {'request': request})
-
+    return render(request, 'activity.html')

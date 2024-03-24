@@ -194,7 +194,23 @@
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
     }
+        .container-2 {
+            display: flex;
+            flex-wrap: wrap; /* Ensure flex items wrap to the next line if needed */
+            justify-content: center; /* Center the flex items horizontally */
+        }
 
+        .playlist-cover {
+            flex: 0 0 calc(25% - 20px); /* Adjust the width of each cover (4 covers in a row) */
+            margin: 10px; /* Adjust margin as needed */
+            text-align: center;
+        }
+
+        .playlist-cover img {
+            max-width: 100%; /* Ensure the image fits within its container */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Add border-radius for rounded corners */
+        }
     </style>
 </head>
 
@@ -203,75 +219,27 @@
     {% if user.is_authenticated %}
     {% include 'navbar.html' %}
     {% csrf_token %}
-    <div class="box">
+    </form>
+<div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
         <p class="description">Find what others are listening to</p>
     </div>
-    <div class="container"></div>
+<div class="container-2">
+    {% for playlist in playlists %}
+        <form id="playlist_{{ playlist.id }}" method="post" action="{% url 'playlist_detail' %}">
+            {% csrf_token %}
+            <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+            <div class="playlist-cover" onclick="submitPlaylistDetailForm('{{ playlist.id }}'); return false;">
+                <img src="{{ playlist.cover_image_url }}" alt="{{ playlist.name }} Cover">
+                <p>{{ playlist.name }}</p>
+            </div>
+        </form>
+    {% endfor %}
+</div>
 
-    <script>
-        const playlists = playlists;
-        const container = document.querySelector('.container');
 
-        const row = document.createElement('div');
-        row.classList.add('row');
 
-        playlists.forEach(playlist => {
-            const col = document.createElement('div');
-            col.classList.add('col-md-4');
 
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.style.width = '18rem';
-
-            // Fetch playlist images (replace this with your actual image URLs)
-            const playlistImages = JSON.parse("{{ cover_art_urls|safe|escapejs }}");
-
-            // Create container for image collage
-            const imageCollage = document.createElement('div');
-            imageCollage.classList.add('image-collage');
-
-            // Add images to the image collage
-            playlistImages.slice(0, 4).forEach(imageUrl => {
-                const imageItem = document.createElement('div');
-                imageItem.classList.add('image-item');
-
-                const image = document.createElement('img');
-                image.src = imageUrl;
-                image.alt = 'Playlist Image';
-
-                imageItem.appendChild(image);
-                imageCollage.appendChild(imageItem);
-            });
-
-            const cardBody = document.createElement('div');
-            cardBody.classList.add('card-body');
-
-            const cardTitle = document.createElement('h5');
-            cardTitle.classList.add('card-title');
-            cardTitle.textContent = playlist;
-
-            const cardText = document.createElement('p');
-            cardText.classList.add('card-text');
-            cardText.textContent = 'Author Name';
-
-            const heartIcon = document.createElement('span');
-            heartIcon.classList.add('heart-icon');
-            heartIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                    </svg>`;
-
-            cardBody.appendChild(heartIcon);
-            cardBody.appendChild(cardTitle);
-            cardBody.appendChild(cardText);
-            card.appendChild(imageCollage); // Append image collage container
-            card.appendChild(cardBody);
-            col.appendChild(card);
-            row.appendChild(col);
-        });
-
-        container.appendChild(row);
-    </script>
     {% else %}
         <video autoplay muted loop id="video-background">
             <source src="static/images/exercise.mp4" type="video/mp4">
@@ -286,5 +254,12 @@
             <a class="button-29" role="button" href="{% provider_login_url 'google' %}">Let's Get Started!</a>
         </div>
     {% endif %}
+
+
+<script>
+    function submitPlaylistDetailForm(playlistId) {
+        document.getElementById('playlist_' + playlistId).submit();
+    }
+</script>
 </body>
 </html>
