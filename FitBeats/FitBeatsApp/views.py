@@ -189,6 +189,9 @@ def submit_workout(request):
                 exercise_names.insert(random_num, "Break " + str(val))
                 val += 1
 
+        exercise_names.insert(0, "Warm Up")
+        exercise_names.append("Cool Down")
+
         for exercise_name in exercise_names:
             # Get or create the Exercise instance
             exercise, _ = Exercise.objects.get_or_create(

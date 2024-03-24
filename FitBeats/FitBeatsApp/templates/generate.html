@@ -150,11 +150,12 @@
                 dropdown.disabled = true;
 
                 selectedGenre = dropdown.value; // Update selectedGenre variable
+                const playlistTitle = document.getElementById("playlist_title").value; // Get the playlist title
 
                 const cards = document.querySelectorAll('.clickable');
                 cards.forEach(card => {
                     const href = card.getAttribute('href');
-                    card.setAttribute('href', href + '?genre=' + selectedGenre);
+                    card.setAttribute('href', `${href}?genre=${selectedGenre}`); // Update href attribute with genre and playlist_title
                 });
             }
         </script>

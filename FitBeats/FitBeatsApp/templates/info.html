@@ -79,6 +79,17 @@
             font-size: 20px;
         }
 
+        #reorderable-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0;
+        }
+        #reorderable-list li {
+            border: 1px solid #ccc; /* Add border around each item */
+            padding: 10px; /* Add padding to provide spacing between text and border */
+            margin-bottom: 10px; /* Add margin bottom to provide spacing between items */
+            cursor: move; /* Change cursor to indicate draggable */
+        }
+
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,29 +105,11 @@
     </div>
 
     <div class="container">
-        <h1 style="font-family: Quicksand, sans-serif">Type of Workout</h1>
-        <div class="row" style="margin-top: 40px">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Cardio</h5>
-                        </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Strength Training</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Dance</h5>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Fun Facts!</div>
+            <ul id="reorderable-list">
+                <li>Hello</li>
+            </ul>
         </div>
     </div>
 
