@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% csrf_token %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -251,26 +252,27 @@
     </div>
 </div>
    </div>
+  <form id="workoutForm" action="/submit_workout/" method="post">
     <div id="duration" class="fade-content">
-    <div class="container">
-        <h1 style="font-family: Quicksand, sans-serif">Duration</h1>
-        <div class="row" style="margin-top: 40px">
-        </div>
+        <!-- Duration input -->
         <div class="form-outline" style="display: flex; justify-content: center; align-items: center;">
-            <input type="number" id="typeNumber" min=0 class="form-control" style="margin-right: 10px;">
+            <input type="number" id="typeNumber" name="duration" min="0" class="form-control" style="margin-right: 10px;">
             <label class="form-label" for="typeNumber" style="margin-left: 10px;">Minutes</label>
         </div>
-    </div>
-    <div class="container">
-        <h1 style="font-family: Quicksand, sans-serif">Workout Intensity</h1>
-        <div class="row" style="margin-top: 40px">
+
+        <!-- Intensity input -->
+        <div class="container">
+            <label for="customRange2" class="form-label">Low</label>
+            <input type="range" class="form-range" name="intensity" min="0" max="2" id="customRange2" style="margin-right: 10px;">
+            <label for="customRange2" class="form-label">High</label>
         </div>
-        <label for="customRange2" class="form-label">Low</label>
-        <input type="range" class="form-range" min="0" max="2" id="customRange2" style="margin-right: 10px;">
-        <label for="customRange2" class="form-label">High</label>
+
+        <!-- Hidden input for selected exercises -->
+        <input type="hidden" id="selectedExercises" name="selectedExercises">
+
+        <button id="addButton">Add</button>
     </div>
-        <button>Add</button>
-</div>
+</form>
 
 
 <script>
@@ -280,6 +282,22 @@
             const duration = document.getElementById('duration');
             duration.classList.add('active');
         });
+    });
+</script>
+
+    <script>
+    document.getElementById('addButton').addEventListener('click', function() {
+        // Get selected exercises
+        const selectedExercises = [];
+        document.querySelectorAll('.checkbox input[type="checkbox"]:checked').forEach(checkbox => {
+            selectedExercises.push(checkbox.value);
+        });
+
+        // Set selected exercises to the hidden input field
+        document.getElementById('selectedExercises').value = JSON.stringify(selectedExercises);
+
+        // Submit the form
+        document.getElementById('workoutForm').submit();
     });
 </script>
 

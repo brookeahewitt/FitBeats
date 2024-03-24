@@ -138,3 +138,6 @@ def logout_view(request):
 def completeWorkout(request):
     return render(request, 'completeWorkout.html', {'request': request})
 
+def submit_workout(request):
+    return render(request, 'generate.html')
+
