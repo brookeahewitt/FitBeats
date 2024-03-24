@@ -42,7 +42,7 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-def generate_playlist(target_duration, max_iterations):
+def generate_playlist(target_duration, max_iterations, token):
     playlist = []
     current_duration = 0
     iteration = 0
@@ -53,9 +53,10 @@ def generate_playlist(target_duration, max_iterations):
         random.shuffle(candidate_tracks)
 
         for track in candidate_tracks:
-            if current_duration + track_duration_mins(track) <= target_duration + 1:
-                playlist.append(track)
-                current_duration += track_duration_mins(track)
+            if track['preview_url']:
+                if current_duration + track_duration_mins(track) <= target_duration + 1:
+                    playlist.append(track)
+                    current_duration += track_duration_mins(track)
 
         # Check if playlist duration is within acceptable range
         if target_duration - 1 <= current_duration <= target_duration + 1:
@@ -64,6 +65,31 @@ def generate_playlist(target_duration, max_iterations):
         iteration += 1
 
     return playlist
+
+def make_songs(playlist, playlist_name):
+    song_list = []
+    images = []
+    created_playlist = Playlist.objects.create(name=playlist_name)
+    for track in playlist:
+        song_name = track["name"]
+        duration = track["duration_ms"] / 60000
+        images.append(track["album"]["images"][0]["url"])
+        print(track['name'])
+        song = Song.objects.create(
+            song_name=song_name,
+            duration=duration,
+            cover_art_link=track["album"]["images"][0]["url"],
+            artist_name=track["artists"][0]["name"],
+            preview_sound =track['preview_url']
+        )
+
+        created_playlist.songs.add(song)
+        song_list.append(song)
+
+        images = images[:4]
+
+    return song_list, created_playlist
+
 
 def track_duration_mins(track):
     # Calculate the duration of the track
@@ -173,10 +199,12 @@ def submit_workout(request):
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
         exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
         # Create a new playlist
-        playlist = Playlist.objects.create(name="Custom Playlist")
+        token = get_token()
+        playlist = generate_playlist(int(duration), 10, token)  # Adjust parameters as needed
+        songs, created_playlist = make_songs(playlist, "Custom Playlist")
 
         entire_workout = Entire_Workout.objects.create(
-            playlist=playlist,
+            playlist=created_playlist,
             duration=duration,
             intensity=intensity,
             exerciser=request.user
@@ -189,9 +217,6 @@ def submit_workout(request):
                 exercise_names.insert(random_num, "Break " + str(val))
                 val += 1
 
-        exercise_names.insert(0, "Warm Up")
-        exercise_names.append("Cool Down")
-
         for exercise_name in exercise_names:
             # Get or create the Exercise instance
             exercise, _ = Exercise.objects.get_or_create(
@@ -199,11 +224,10 @@ def submit_workout(request):
                 entire_workout=entire_workout
             )
 
-        # Calculate songs for playlist here and add it please thanks!
-        # Redirect to a success page
-        print("EXERCISE NAMES:", exercise_names)
-        return render(request, 'completeWorkout.html', {'workout': entire_workout, 'exercises': exercise_names})
+
+        total_duration = sum(song.duration for song in created_playlist.songs.all()) if playlist else 0
+
+        return render(request, 'completeWorkout.html', {'workout': entire_workout, 'exercises': exercise_names, 'playlist': entire_workout.playlist, 'entire_duration': total_duration})
 
         # If the request method is not POST, render the form again or return an appropriate response
     return render(request, 'generate.html')
-

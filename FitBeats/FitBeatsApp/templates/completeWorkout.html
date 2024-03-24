@@ -87,10 +87,27 @@
     </div>
     <div class="container">
         <div>
-            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Workouts</div>
+            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Exercises</div>
             <ul id="reorderable-list">
                 {% for exercise in exercises %}
                     <li>{{ exercise }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+        <div class="container">
+        <div>
+            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Playlist - {{ entire_duration }}</div>
+            <ul id="reorderable-list">
+                {% for song in playlist.songs.all %}
+                    <li>
+                        <strong>{{ song.song_name }}</strong><br>
+                        <span>Duration: {{ song.duration }} minutes</span><br>
+                        <audio controls>
+                            <source src="{{ song.preview_sound }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
