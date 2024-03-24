@@ -161,6 +161,13 @@
 .orange-button:hover {
     background-color: darkorange;
 }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            margin-bottom: 30px;
+        }
+
 
 
     </style>
@@ -233,7 +240,9 @@
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
 
+      <div class="button-container">
         <button id="addButton" class="orange-button" >Add</button>
+      </div>
     </div>
 </form>
 
