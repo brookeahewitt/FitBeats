@@ -251,3 +251,7 @@ def submit_workout(request):
 def activity(request):
     return render(request, 'activity.html', {'request': request})
 
+
+def genre(request):
+    return render(request, 'genre.html', {'request': request})
+
