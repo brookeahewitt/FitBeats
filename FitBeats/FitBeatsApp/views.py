@@ -42,14 +42,15 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 
-def generate_playlist(target_duration, max_iterations, token):
+def generate_playlist(target_duration, max_iterations, token, genre):
     playlist = []
     current_duration = 0
     iteration = 0
+    print("genre", genre)
 
     while iteration < max_iterations:
         # Retrieve a batch of candidate tracks
-        candidate_tracks = get_recommendations(token, ['pop'], 120, 140)
+        candidate_tracks = get_recommendations(token, [genre], 120, 140)
         random.shuffle(candidate_tracks)
 
         for track in candidate_tracks:
@@ -100,6 +101,7 @@ def track_duration_mins(track):
 def get_recommendations(token, genres, min_tempo, max_tempo):
     url = "https://api.spotify.com/v1/recommendations"
     headers = get_auth_header(token)
+
     query = {
         "seed_genres": ",".join(genres),
         "min_tempo": min_tempo,
@@ -216,7 +218,7 @@ def submit_workout(request):
         exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
         # Create a new playlist
         token = get_token()
-        playlist = generate_playlist(int(duration), 10, token)  # Adjust parameters as needed
+        playlist = generate_playlist(int(duration), 10, token, genre)  # Adjust parameters as needed
         songs, created_playlist = make_songs(playlist, playlist_name)
 
         entire_workout = Entire_Workout.objects.create(
@@ -266,11 +268,18 @@ def playlist_detail(request):
         total_duration = entire_workout.duration
         exercise_names = list(entire_workout.exercise_set.values_list('exercise_name', flat=True))
 
-    # Pass the playlist object to the template
+        # Pass the playlist object to the template
         return render(request, 'completeWorkout.html',
-                  {'workout': entire_workout, 'exercises': exercise_names, 'playlist': entire_workout.playlist,
-                   'entire_duration': total_duration})
+                      {'workout': entire_workout, 'exercises': exercise_names, 'playlist': entire_workout.playlist,
+                       'entire_duration': total_duration})
 
 
 def activity(request):
-    return render(request, 'activity.html')
+    playlists = Playlist.objects.filter(songs__isnull=False, songs__cover_art_link__isnull=False)
+
+    for playlist in playlists:
+        first_song = playlist.songs.first()
+        if first_song:
+            playlist.cover_image_url = first_song.cover_art_link
+
+    return render(request, 'activity.html', {'playlists': playlists})
