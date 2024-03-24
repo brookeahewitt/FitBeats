@@ -44,6 +44,13 @@
             font-size: 18px;
         }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            margin-bottom: 30px;
+        }
+
         .box {
             height: 200px; /* Set height as needed */
             background-color: rgba(253, 139, 63, 0.99); /* Set background color to orange */
@@ -265,7 +272,9 @@
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
 
-        <button id="addButton" class="orange-button" >Add</button>
+        <div class="button-container">
+            <button id="addButton" class="orange-button" >Add</button>
+          </div>
     </div>
 </form>
 

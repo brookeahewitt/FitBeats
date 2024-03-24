@@ -162,6 +162,13 @@
     background-color: darkorange;
 }
 
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            margin-bottom: 30px;
+        }
+
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -241,7 +248,9 @@
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
 
-        <button id="addButton" class="orange-button" >Add</button>
+        <div class="button-container">
+            <button id="addButton" class="orange-button" >Add</button>
+          </div>
     </div>
 </form>
 

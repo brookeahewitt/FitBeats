@@ -25,5 +25,6 @@ urlpatterns = [
     path('stretching', views.stretching, name='stretching'),
     path('pilates', views.pilates, name='pilates'),
     path('submit_workout/', views.submit_workout, name='submit_workout'),
-    path('activity.html', views.activity, name='activity'),
+    path('activity', views.activity, name='activity'),
+    path('genre', views.genre, name='genre'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

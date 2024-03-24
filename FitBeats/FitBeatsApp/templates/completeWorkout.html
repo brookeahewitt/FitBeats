@@ -74,6 +74,10 @@
         ul li {
             max-width: 500px;
         }
+
+        .overall {
+            display: flex;
+        }
     </style>
 </head>
 
@@ -82,9 +86,11 @@
     {% if user.is_authenticated %}
     {% include 'navbar.html' %}
     </form>
+
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Workout Playlist: {{playlist.name}}</h1>
     </div>
+        <div class="overall">
     <div class="container">
         <div>
             <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Exercises</div>
@@ -112,6 +118,7 @@
             </ul>
         </div>
     </div>
+        </div>
     {% else %}
     <div class="centered">
     <a class="navbar-brand" style="font-family: Inter, sans-serif;">

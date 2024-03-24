@@ -161,6 +161,13 @@
 .orange-button:hover {
     background-color: darkorange;
 }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            margin-bottom: 30px;
+        }
+
 
 
     </style>
@@ -176,7 +183,11 @@
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Cardio</h1>
         <p class="description">Customize your workout</p>
+<<<<<<< HEAD
         <input type="text" name="playlist_name" placeholder="Insert playlist name">
+=======
+        {% include 'genre.html' %}
+>>>>>>> 3d39290662599071ac555d5bd29bf5f1be52a09b
     </div>
    <div class="container">
     <h1 style="font-family: Quicksand, sans-serif">Types of Exercise</h1>
@@ -235,7 +246,9 @@
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
 
+      <div class="button-container">
         <button id="addButton" class="orange-button" >Add</button>
+      </div>
     </div>
 </form>
 
