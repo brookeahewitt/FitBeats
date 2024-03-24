@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
@@ -91,17 +90,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto" style="margin-right: 30px">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Explore</a>
+
+                <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'index' %}">Explore</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Generate</a>
+
+                <li class="nav-item {% if request.path == '/generate' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'generate' %}">Generate</a>
                 </li>
-                <li class="nav-item">
+
+                <li class="nav-item {% if request.path == '/activity' %}active{% endif %}">
                     <a class="nav-link" href="#">Activity</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Info</a>
+
+                <li class="nav-item {% if request.path == '/info' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'info' %}">Info</a>
+                </li>
+
+                <li class="nav-item {% if request.path == '/info' %}active{% endif %}">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>
             </ul>
         </div>

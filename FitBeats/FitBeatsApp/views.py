@@ -1,5 +1,7 @@
 import random
-from django.shortcuts import render
+
+from django.contrib.auth import logout
+from django.shortcuts import render, redirect
 
 from dotenv import load_dotenv
 import os
@@ -91,18 +93,39 @@ for track in playlist:
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'request': request})
 
 
 def exercises(request):
-    return render(request, 'exercises.html')
+    return render(request, 'exercises.html', {'request': request})
 
 
 def generate(request):
-    return render(request, 'generate.html')
+    return render(request, 'generate.html', {'request': request})
 
 def cardio(request):
     return render(request, 'cardio.html')
 
 def weight_lifting(request):
     return render(request, 'weight_lifting.html')
+
+def pilates(request):
+    return render(request, 'pilates.html')
+
+def yoga(request):
+    return render(request, 'yoga.html')
+
+def calisthenics(request):
+    return render(request, 'calisthenics.html')
+
+def stretching(request):
+    return render(request, 'stretching.html')
+
+
+def info(request):
+    return render(request, 'info.html', {'request': request})
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+

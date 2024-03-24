@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate</title>
+    <title>Pilates</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
@@ -104,6 +104,7 @@
 
 .checkbox {
     margin-right: 25px;
+    margin-bottom: 20px;
     font-size: 20px;
 }
 
@@ -183,38 +184,50 @@
     </nav>
 
     <div class="box">
-        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Cardio</h1>
+        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Pilates</h1>
         <p class="description">Customize your workout</p>
     </div>
    <div class="container">
-        <h1 style="font-family: Quicksand, sans-serif">Type of Exercise</h1>
-        <div class="row" style="margin-top: 40px">
-        </div>
-       <div class="radio-buttons">
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Running">
-        <span class="radio-label">Running</span>
+    <h1 style="font-family: Quicksand, sans-serif">Types of Exercise</h1>
+    <div class="row" style="margin-top: 40px">
+    </div>
+    <div class="checkboxes">
+<div class="checkboxes">
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Bird Dog">
+        <span class="checkbox-label">Bird Dog</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Walking">
-        <span class="radio-label">Walking</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Crunches">
+        <span class="checkbox-label">Crunches</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Biking">
-        <span class="radio-label">Biking</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Flutter Kicks">
+        <span class="checkbox-label">Flutter Kicks</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Stair Climber">
-        <span class="radio-label">Stair Climber</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Leg Lifts">
+        <span class="checkbox-label">Leg Lifts</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Rowing">
-        <span class="radio-label">Rowing</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="One Leg Circle">
+        <span class="checkbox-label">One Leg Circle</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Dancing">
-        <span class="radio-label">Dancing</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Plank">
+        <span class="checkbox-label">Plank</span>
     </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Side Leg Lifts">
+        <span class="checkbox-label">Side Leg Lifts</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Toe Taps">
+        <span class="checkbox-label">Toe Taps</span>
+    </label>
+
+</div>
+</div>
 </div>
    </div>
     <div id="duration" class="fade-content">
@@ -235,16 +248,12 @@
         <input type="range" class="form-range" min="0" max="2" id="customRange2" style="margin-right: 10px;">
         <label for="customRange2" class="form-label">High</label>
     </div>
+        <button>Add</button>
 </div>
-
-    <button>Next</button>
-
-
-
 
 
 <script>
-    document.querySelectorAll('.checkbox input[type="radio"]').forEach(radio => {
+    document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(radio => {
         radio.addEventListener('click', function() {
             if (!this.checked) return;
             const duration = document.getElementById('duration');

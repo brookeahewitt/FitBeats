@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,15 +53,46 @@
             margin-top: 50px;
             color: #4d4d4d;
         }
+
+
+
+        .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Adjust as needed */
+    }
+
+    .logo {
+        width: 50px; /* Adjust size as needed */
+        height: auto;
+        margin-right: 10px; /* Adjust spacing between image and text */
+    }
+
+    .brand-text {
+        font-size: 18px; /* Adjust font size as needed */
+    }
+
+    .login-button {
+    display: block;
+    margin-top: 10px; /* Adjust the spacing between the brand text and the button */
+    text-align: center; /* Center the button horizontally */
+    font-size: 16px; /* Adjust the font size */
+    /* Add more styling as needed */
+    }
+
     </style>
 </head>
 
 <body>
+    {% load socialaccount %}
+    {% if user.is_authenticated %}
+    {% include 'navbar.html' %}
+    </form>
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
-        <p class="description">Find your next workout playlist</p>
+        <p class="description">A workout for your brain!</p>
     </div>
-    <h1>Explore</h1>
     <div class="container"></div>
 
     <script>
@@ -103,5 +133,14 @@
             container.appendChild(row);
         }
     </script>
+    {% else %}
+    <div class="centered">
+    <a class="navbar-brand" style="font-family: Inter, sans-serif;">
+        <img src="static/images/image2.png" alt="FitBeats Logo">
+        <span class="brand-text">FitBeats</span>
+    </a>
+    </div>
+    <a href="{% provider_login_url 'google' %}" class="login-button">Login with Google</a>
+    {% endif %}
 </body>
 </html>
