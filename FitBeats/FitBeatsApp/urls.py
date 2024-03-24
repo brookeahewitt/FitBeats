@@ -11,7 +11,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('generate', views.generate, name="generate"),
     path('cardio', views.cardio, name="cardio"),
-    path('weight_lifting', views.weight_lifting, name="weight_lifting"),
     path('info', views.info, name="info"),
     path('logout/', views.logout_view, name='logout'),
     path('accounts/', include('allauth.urls')),

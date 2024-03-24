@@ -68,8 +68,6 @@ def generate_playlist(target_duration, max_iterations):
 def track_duration_mins(track):
     # Calculate the duration of the track
     return track["duration_ms"] / 60000
-
-
 def get_recommendations(token, genres, min_tempo, max_tempo):
     url = "https://api.spotify.com/v1/recommendations"
     headers = get_auth_header(token)
@@ -128,22 +126,29 @@ def generate(request):
     return render(request, 'generate.html', {'request': request})
 
 def cardio(request):
-    return render(request, 'cardio.html')
+    genre = request.GET.get('genre')
+    print("Genre:", genre)  # Add this line for debugging
+    return render(request, 'cardio.html', {'genre': genre})
 
 def weight_lifting(request):
-    return render(request, 'weight_lifting.html')
+    genre = request.GET.get('genre')
+    return render(request, 'weight_lifting.html', {'genre': genre})
 
 def pilates(request):
-    return render(request, 'pilates.html')
+    genre = request.GET.get('genre')
+    return render(request, 'pilates.html', {'genre': genre})
 
 def yoga(request):
-    return render(request, 'yoga.html')
+    genre = request.GET.get('genre')
+    return render(request, 'yoga.html', {'genre': genre})
 
 def calisthenics(request):
-    return render(request, 'calisthenics.html')
+    genre = request.GET.get('genre')
+    return render(request, 'calisthenics.html', {'genre': genre})
 
 def stretching(request):
-    return render(request, 'stretching.html')
+    genre = request.GET.get('genre')
+    return render(request, 'stretching.html', {'genre': genre})
 
 
 def info(request):
@@ -165,6 +170,8 @@ def submit_workout(request):
         print("DURATION:",duration)
         intensity = request.POST.get('intensity')
         print("INTENSITY", intensity)
+        genre =  request.POST.get('selectedGenre')
+        print("GENRE", genre)
         selected_exercises = request.POST.getlist('selectedExercises')
         print("SELECT EXERCISES", selected_exercises)
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
