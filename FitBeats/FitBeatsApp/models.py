@@ -13,16 +13,21 @@ class Playlist(models.Model):
     cover_image = models.URLField(max_length=400)
     name = models.CharField(max_length=200)
 
-class Exercise(models.Model):
-    exercise_name = models.CharField(max_length=200)
 
-class Workout_Segment(models.Model):
-    exercise_names = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    workout_type = models.CharField(max_length=200)
+class Entire_Workout(models.Model):
+    # segments = models.ForeignKey(Workout_Segment, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, null=True)
     duration = models.DecimalField(decimal_places=2, max_digits=10)
     intensity = models.DecimalField(decimal_places=2, max_digits=10)
 
-class Entire_Workout(models.Model):
-    segments = models.ForeignKey(Workout_Segment, on_delete=models.CASCADE)
-    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
+
+class Exercise(models.Model):
+    exercise_name = models.CharField(max_length=200)
+    entire_workout = models.ForeignKey(Entire_Workout, on_delete=models.CASCADE)
+
+# class Workout_Segment(models.Model):
+#     exercise_names = models.ManyToManyField(Exercise, related_name="exercises", blank=True)
+#     workout_type = models.CharField(max_length=200)
+#     duration = models.DecimalField(decimal_places=2, max_digits=10)
+#     intensity = models.DecimalField(decimal_places=2, max_digits=10)
 

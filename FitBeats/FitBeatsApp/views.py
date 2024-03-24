@@ -12,7 +12,7 @@ from requests import post, get
 import json
 import logging
 
-from .models import Playlist, Workout_Segment, Entire_Workout, Exercise, Song
+from .models import Playlist, Entire_Workout, Exercise, Song
 
 
 load_dotenv()
@@ -163,27 +163,22 @@ def submit_workout(request):
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
         selected_exercises = request.POST.getlist('selectedExercises')
-
+        selected_exercises_string = selected_exercises[0]  # Get the string from the list
+        exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
+        print(exercise_names)
         # Create a new playlist
         playlist = Playlist.objects.create(name="Custom Playlist")
 
-        for exercise_name in selected_exercises:
+        entire_workout = Entire_Workout.objects.create(
+
+            playlist = playlist
+
+        )
+
+        for exercise_name in exercise_names:
+            print(exercise_name)
             # Get or create the Exercise instance
             exercise, _ = Exercise.objects.get_or_create(exercise_name=exercise_name)
-
-            # Create a new Workout_Segment instance
-            segment = Workout_Segment.objects.create(
-                exercise_names=exercise,
-                workout_type="Custom",
-                duration=duration,
-                intensity=intensity
-            )
-
-            # Add the segment to the playlist
-            # Note: You should add songs to the playlist, so convert the Workout_Segment to a Song if needed
-            song = Song.objects.create(song_name=exercise_name, artist_name="Unknown", duration=duration,
-                                       cover_art_link="", preview_sound="")
-            playlist.songs.add(song)
 
         # Redirect to a success page
         return HttpResponseRedirect(reverse('generate'))
