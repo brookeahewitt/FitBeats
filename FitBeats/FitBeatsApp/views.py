@@ -155,36 +155,39 @@ def completeWorkout(request):
     return render(request, 'completeWorkout.html', {'request': request})
 
 def submit_workout(request):
-    if request.method == 'POST':
-        # Process the form data
-        duration = request.POST.get('duration')
-        intensity = request.POST.get('intensity')
-        selected_exercises_json = request.POST.getlist('selectedExercises')
-        selected_exercises = json.loads(selected_exercises_json)
+    def submit_workout(request):
+        if request.method == 'POST':
+            # Process the form data
+            duration = request.POST.get('duration')
+            intensity = request.POST.get('intensity')
+            selected_exercises = request.POST.getlist('selectedExercises')  # Already a list, no need to parse
 
-        playlist = Playlist.objects.create(
-            name="Custom Playlist",
-        )
-
-        for exercisename in selected_exercises:
-            exercise = Exercise.objects.get_or_create(exercise_name=exercisename)
-            segment = Workout_Segment.objects.create(
-                exercise_names=exercise,
-                workout_type="Custom",
-                duration=duration,
-                intensity=intensity
+            playlist = Playlist.objects.create(
+                name="Custom Playlist",
             )
-            # Add the segment to the playlist
-            playlist.songs.add(segment)
+
+            for exercisename in selected_exercises:
+                exercise, _ = Exercise.objects.get_or_create(exercise_name=exercisename)
+                segment = Workout_Segment.objects.create(
+                    exercise_names=exercise,
+                    workout_type="Custom",
+                    duration=duration,
+                    intensity=intensity
+                )
+                # Add the segment to the playlist
+                playlist.songs.add(segment)
 
             # Create an Entire_Workout instance and associate it with the playlist
-        entire_workout = Entire_Workout.objects.create(
-            playlist=playlist
-        )
+            entire_workout = Entire_Workout.objects.create(
+                playlist=playlist,
+                cover_image = ""
+            )
 
-        # Perform any necessary actions (e.g., save data to the database)
-        # Example: Save the form data to the database
-        # workout = Workout(duration=duration, intensity=intensity)
-        # workout.save()
-    return render(request, 'generate.html')
+            # Perform any necessary actions (e.g., save data to the database)
+            # Example: Save the form data to the database
+            # workout = Workout(duration=duration, intensity=intensity)
+            # workout.save()
+            return HttpResponseRedirect(reverse('generate'))
+
+        return render(request, 'generate.html')
 
