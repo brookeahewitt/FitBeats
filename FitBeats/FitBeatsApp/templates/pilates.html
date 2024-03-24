@@ -147,7 +147,20 @@
 
 }
 
+.orange-button {
+    background-color: #ff9d48;
+    color: white;
+    font-size: 20px; /* Adjust font size as needed */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+.orange-button:hover {
+    background-color: darkorange;
+}
 
     </style>
 
@@ -221,7 +234,7 @@
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
 
-        <button id="addButton">Add</button>
+        <button id="addButton" class="orange-button" >Add</button>
     </div>
 </form>
 
