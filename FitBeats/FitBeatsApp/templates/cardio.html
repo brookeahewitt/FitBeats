@@ -190,30 +190,30 @@
         <h1 style="font-family: Quicksand, sans-serif">Type of Exercise</h1>
         <div class="row" style="margin-top: 40px">
         </div>
-       <div class="radio-buttons">
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Running">
-        <span class="radio-label">Running</span>
+       <div class="checkboxes">
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Running">
+        <span class="checkbox-label">Running</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Walking">
-        <span class="radio-label">Walking</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Walking">
+        <span class="checkbox-label">Walking</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Biking">
-        <span class="radio-label">Biking</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Biking">
+        <span class="checkbox-label">Biking</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Stair Climber">
-        <span class="radio-label">Stair Climber</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Stair Climber">
+        <span class="checkbox-label">Stair Climber</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Rowing">
-        <span class="radio-label">Rowing</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Rowing">
+        <span class="checkbox-label">Rowing</span>
     </label>
-    <label class="radio-button">
-        <input type="radio" name="workout" value="Dancing">
-        <span class="radio-label">Dancing</span>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Dancing">
+        <span class="checkbox-label">Dancing</span>
     </label>
 </div>
    </div>
@@ -244,7 +244,7 @@
 
 
 <script>
-    document.querySelectorAll('.checkbox input[type="radio"]').forEach(radio => {
+    document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(radio => {
         radio.addEventListener('click', function() {
             if (!this.checked) return;
             const duration = document.getElementById('duration');
