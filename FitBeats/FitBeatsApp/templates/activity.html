@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
-
+{% include 'navbar.html' %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Playlists</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
@@ -27,6 +27,11 @@
         .col {
             flex: 1;
             margin: 0 50px; /* Adjust the margin as needed */
+        }
+
+        .box {
+            height: 250px; /* Set height as needed */
+            background-color: #ccc; /* Set background color as needed */
         }
 
         .text {
@@ -74,6 +79,18 @@
             font-size: 20px;
         }
 
+        #reorderable-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0;
+        }
+        #reorderable-list li {
+            border: 1px solid #ccc; /* Add border around each item */
+            border-radius: 10px;
+            padding: 10px; /* Add padding to provide spacing between text and border */
+            margin-bottom: 10px; /* Add margin bottom to provide spacing between items */
+            cursor: move; /* Change cursor to indicate draggable */
+        }
+
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,40 +99,28 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#" style="font-family: Inter, sans-serif;">
-            <a class="navbar-brand" href="#" style="font-family: Inter, sans-serif;">
-                <img style="width: 150px; height: 90px;" src="{% static 'images/FitBeatsLogo2.JPG' %}" alt="FitBeats Logo">
-            </a>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto" style="margin-right: 30px">
 
-                <li class="nav-item {% if request.path == '/' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'index' %}">Explore</a>
-                </li>
+    <div class="box">
+        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">{{request.user}}'s Playlists</h1>
+        <p class="description">Exercise to your own beat!</p>
+    </div>
 
-                <li class="nav-item {% if request.path == '/generate' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'generate' %}">Generate</a>
-                </li>
-
-                <li class="nav-item {% if request.path == '/activity' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'activity' %}">Activity</a>
-                </li>
-
-                <li class="nav-item {% if request.path == '/info' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'info' %}">Info</a>
-                </li>
-
-                <li class="nav-item {% if request.path == '/info' %}active{% endif %}">
-                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
+    <div class="container">
+        <div>
+            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Fun Facts!</div>
+            <ul id="reorderable-list">
+                <li>Ever heard of lifesaving songs? These songs are ideal for hitting the 100-120 beats per minute required for chest compressions: Stayin' Alive, Baby Shark, Eye of the Tiger, I will Survive, and Dancing Queen.</li>
+                <li>Music improves physical health by helping people stay within the optimal tempo for enhanced workout performance. Studies have shown that listening to music increases endurance by 15%!</li>
+                <li>Did you know? The more muscle mass you have, the more fat your body burns while resting!</li>
+                <li>Do you have a dog? Man's best friend may just be saving your life! Owning pets improves mental health, reduces risk for heart disease, and lowers blood pressure and cholesterol levels. Talk about a great pal!</li>
+                <li>Studies have shown that synchronized and upbeat music can have positive physical and psychological effects. Those who exercise with energetic music have an increased pace, more repetitions, and travel further.</li>
+                <li>Physical activity such as exercise improves your physical health and staves off diseases. Listening to music benefits mental health by improving sleep quality, mood, mental alertness, and memory. Physical activity and music combined improves your overall wellbeing!</li>
+                <li>A 2007 study found that music, classical in particular, can help make plants grow faster.</li>
+                <li>Exercise has been shown to keep your blood sugar in check, improve cardiovascular health, boost your mood, and help you live longer.</li>
+                <li>The first and only band to play on all seven continents is Metallica.</li>
             </ul>
         </div>
-    </nav>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
