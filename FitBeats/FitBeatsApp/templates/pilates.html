@@ -241,12 +241,13 @@
         <!-- Intensity input -->
         <div class="container">
             <label for="customRange2" class="form-label">Low</label>
-            <input type="range" class="form-range" name="intensity" min="0" max="2" id="customRange2" style="margin-right: 10px;">
+            <input type="range" class="form-range" name="intensity" min="60" max="90" id="customRange2" style="margin-right: 10px;">
             <label for="customRange2" class="form-label">High</label>
         </div>
 
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
+      <input type="hidden" id="selectedGenre" name="selectedGenre" value="{{ genre }}">
 
         <div class="button-container">
             <button id="addButton" class="orange-button" >Add</button>

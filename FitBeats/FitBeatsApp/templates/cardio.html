@@ -183,9 +183,7 @@
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Cardio</h1>
         <p class="description">Customize your workout</p>
-
-        <input type="text" name="playlist_name" placeholder="Insert playlist name">
-
+        <input type="text" name="playlist_name" placeholder="Insert playlist name">4
     </div>
    <div class="container">
     <h1 style="font-family: Quicksand, sans-serif">Types of Exercise</h1>
@@ -237,12 +235,13 @@
         <!-- Intensity input -->
         <div class="container">
             <label for="customRange2" class="form-label">Low</label>
-            <input type="range" class="form-range" name="intensity" min="0" max="2" id="customRange2" style="margin-right: 10px;">
+            <input type="range" class="form-range" name="intensity" min="120" max="140" id="customRange2" style="margin-right: 10px;">
             <label for="customRange2" class="form-label">High</label>
         </div>
 
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
+        <input type="hidden" id="selectedGenre" name="selectedGenre" value="{{ genre }}">
 
       <div class="button-container">
         <button id="addButton" class="orange-button" >Add</button>
