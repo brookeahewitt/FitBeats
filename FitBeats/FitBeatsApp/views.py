@@ -100,3 +100,9 @@ def exercises(request):
 
 def generate(request):
     return render(request, 'generate.html')
+
+def cardio(request):
+    return render(request, 'cardio.html')
+
+def weight_lifting(request):
+    return render(request, 'weight_lifting.html')
