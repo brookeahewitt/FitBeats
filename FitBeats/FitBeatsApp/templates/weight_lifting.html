@@ -253,6 +253,7 @@
 </div>
    </div>
   <form id="workoutForm" action="/submit_workout/" method="post">
+      {% csrf_token %}
     <div id="duration" class="fade-content">
         <!-- Duration input -->
         <div class="form-outline" style="display: flex; justify-content: center; align-items: center;">

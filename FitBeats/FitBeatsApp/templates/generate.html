@@ -116,51 +116,50 @@
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Generate</h1>
         <p class="description">Create your next workout playlist</p>
     </div>
-
     <div class="container">
         <h1 style="font-family: Quicksand, sans-serif">Type of Workout</h1>
         <div class="row" style="margin-top: 40px">
             <div class="col-md-4">
-                <div class="card clickable" data-url="cardio.html">
+                <a class="card clickable" href="{% url 'cardio' %}" style="text-decoration: none; color: #282c34">
                     <div class="card-body">
                         <h5 class="card-title">Cardio</h5>
-                        </div>
-                </div>
+                    </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card clickable" data-url="weight-lifting.html">
+                <a class="card clickable" href="{% url 'weightLifting' %}" style="text-decoration: none; color: #282c34">
                     <div class="card-body">
                         <h5 class="card-title">Weight Lifting</h5>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card clickable" data-url="yoga.html">
+                <a class="card clickable" href="{% url 'yoga' %}" style="text-decoration: none; color: #282c34">
                     <div class="card-body">
                         <h5 class="card-title">Yoga</h5>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card clickable" data-url="calisthenics.html">
+                <a class="card clickable" href="{% url 'calisthenics' %}" style="text-decoration: none; color: #282c34">
                     <div class="card-body">
                         <h5 class="card-title">Calisthenics</h5>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card clickable" data-url="stretching.html">
+                <a class="card clickable" href="{% url 'stretching' %}" style="text-decoration: none; color: #282c34">
                     <div class="card-body">
                         <h5 class="card-title">Stretching</h5>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="card clickable" data-url="pilates.html">
+                <a class="card clickable" href="{% url 'pilates' %}" style="text-decoration: none; color: #282c34">
                     <div class="card-body">
                         <h5 class="card-title">Pilates</h5>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
