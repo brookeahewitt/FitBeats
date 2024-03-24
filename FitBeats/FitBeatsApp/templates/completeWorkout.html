@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Playlist</title>
     <style>
         .box {
             height: 200px; /* Set height as needed */
@@ -82,60 +83,18 @@
     {% include 'navbar.html' %}
     </form>
     <div class="box">
-        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Finalize Workout</h1>
+        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Workout Playlist: HI!</h1>
     </div>
     <div class="container">
         <div>
-            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Confirm Order of Workout</div>
-            <p>Reorder the workout by dragging </p>
+            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Workouts</div>
             <ul id="reorderable-list">
-                <li draggable="true">Item 1</li>
-                <li draggable="true">Item 2</li>
-                <li draggable="true">Item 3</li>
-                <li draggable="true">Item 4</li>
+                {% for exercise in exercises %}
+                    <li>{{ exercise }}</li>
+                {% endfor %}
             </ul>
         </div>
     </div>
-    <script>
-        // JavaScript code for making the list reorderable
-        const list = document.getElementById('reorderable-list');
-
-        list.addEventListener('dragstart', function(event) {
-            event.target.classList.add('dragging');
-        });
-
-        list.addEventListener('dragend', function(event) {
-            event.target.classList.remove('dragging');
-        });
-
-        list.addEventListener('dragover', function(event) {
-            event.preventDefault();
-            const afterElement = getDragAfterElement(list, event.clientY);
-            const currentElement = document.querySelector('.dragging');
-            if (afterElement == null) {
-                list.appendChild(currentElement);
-            } else {
-                list.insertBefore(currentElement, afterElement);
-            }
-        });
-
-        list.addEventListener('drop', function(event) {
-            event.preventDefault();
-        });
-
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
-        }
-    </script>
     {% else %}
     <div class="centered">
     <a class="navbar-brand" style="font-family: Inter, sans-serif;">

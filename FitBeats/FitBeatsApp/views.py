@@ -167,13 +167,8 @@ def submit_workout(request):
         # Process the form data
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
-<<<<<<< HEAD
-        print("INTENSITY", intensity)
         genre =  request.POST.get('selectedGenre')
-        print("GENRE", genre)
-=======
-        num_breaks = request.POST.get('num_breaks')
->>>>>>> db38d6670539b2ed95f3e54b082232aab002c794
+        num_breaks = int(request.POST.get('num_breaks'))
         selected_exercises = request.POST.getlist('selectedExercises')
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
         exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
@@ -187,6 +182,13 @@ def submit_workout(request):
             exerciser=request.user
         )
 
+        val = 1
+        if num_breaks > 0:
+            for i in range(num_breaks):
+                random_num = random.randint(1, len(exercise_names)-1)
+                exercise_names.insert(random_num, "Break " + str(val))
+                val += 1
+
         for exercise_name in exercise_names:
             # Get or create the Exercise instance
             exercise, _ = Exercise.objects.get_or_create(
@@ -194,17 +196,9 @@ def submit_workout(request):
                 entire_workout=entire_workout
             )
 
-        if num_breaks != 0:
-            num_exercises = len(exercise_names)
-            for i in num_breaks:
-                random_num = random.randint(1, num_exercises-1)
-                exercise_names.insert(random_num, Exercise.objects.get_or_create(
-                    exercise_name="Break",
-                    entire_workout=entire_workout
-                ))
-
         # Calculate songs for playlist here and add it please thanks!
         # Redirect to a success page
+        print("EXERCISE NAMES:", exercise_names)
         return render(request, 'completeWorkout.html', {'workout': entire_workout, 'exercises': exercise_names})
 
         # If the request method is not POST, render the form again or return an appropriate response
