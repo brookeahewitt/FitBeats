@@ -139,5 +139,15 @@ def completeWorkout(request):
     return render(request, 'completeWorkout.html', {'request': request})
 
 def submit_workout(request):
+    if request.method == 'POST':
+        # Process the form data
+        duration = request.POST.get('duration')
+        intensity = request.POST.get('intensity')
+        selected_exercises = request.POST.getlist('selectedExercises')
+
+        # Perform any necessary actions (e.g., save data to the database)
+        # Example: Save the form data to the database
+        # workout = Workout(duration=duration, intensity=intensity)
+        # workout.save()
     return render(request, 'generate.html')
 

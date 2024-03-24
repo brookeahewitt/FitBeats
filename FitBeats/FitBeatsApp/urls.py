@@ -18,6 +18,6 @@ urlpatterns = [
     path('calisthenics', views.calisthenics, name='calisthenics'),
     path('stretching', views.stretching, name='stretching'),
     path('completeWorkout', views.completeWorkout, name="completeWorkout"),
-path('submit_workout/', views.submit_workout, name='submit_workout'),
+    path('submit_workout/', views.submit_workout, name='submit_workout'),
 
 ]
