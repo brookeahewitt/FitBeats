@@ -19,6 +19,7 @@ class Entire_Workout(models.Model):
     playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE, null=True)
     duration = models.DecimalField(decimal_places=2, max_digits=10)
     intensity = models.DecimalField(decimal_places=2, max_digits=10)
+    exerciser = models.CharField(max_length=20)
 
 
 class Exercise(models.Model):
