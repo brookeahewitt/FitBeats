@@ -237,7 +237,21 @@
             <label for="customRange2" class="form-label">Low</label>
             <input type="range" class="form-range" name="intensity" min="120" max="140" id="customRange2" style="margin-right: 10px;">
             <label for="customRange2" class="form-label">High</label>
+            <br>
+             <span id="rangeValue">130</span>
+            <p>BPM</p>
         </div>
+    <script>
+    // Get the range input and the span element
+    const rangeInput = document.getElementById('customRange2');
+    const rangeValue = document.getElementById('rangeValue');
+
+    // Add an event listener to the range input
+    rangeInput.addEventListener('input', function() {
+        // Update the text content of the span element with the current value of the range input
+        rangeValue.textContent = this.value;
+    });
+</script>
 
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
