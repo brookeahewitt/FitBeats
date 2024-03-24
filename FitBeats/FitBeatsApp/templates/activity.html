@@ -91,6 +91,141 @@
             cursor: move; /* Change cursor to indicate draggable */
         }
 
+        .row {
+          display: flex;
+        }
+
+        .col {
+          flex: 1;
+          margin: 0 50px;
+        }
+
+        .musicbox {
+          height: 250px;
+          background-color: #ccc;
+          border-radius: 10px;
+        }
+
+        .text {
+          text-align: center;
+        }
+
+        .row:not(:last-child) {
+          margin-bottom: 20px;
+        }
+
+        .card {
+            margin: 20px;
+        }
+        .box {
+            height: 200px; /* Set height as needed */
+            background-color: rgba(253, 139, 63, 0.99); /* Set background color to orange */
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Align content in column */
+            justify-content: center;
+            align-items: center;
+            color: white; /* Set text color to white */
+            font-size: 24px;
+            padding: 40px;
+        }
+        .description {
+            text-align: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            font-size: 20px;
+            font-family: Inter, sans-serif/* Set font size as needed */
+        }
+
+        .container {
+            text-align: center;
+            font-family: Inter, sans-serif;
+            margin-top: 50px;
+            color: #4d4d4d;
+        }
+
+        .card-body .card-title {
+            margin-top: 10px;
+        }
+
+        .heart-icon {
+            margin-left: auto;
+        }
+
+        .image-collage {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr); /* 2 columns */
+          grid-gap: 10px; /* Gap between images */
+        }
+
+        .image-item img {
+          width: 100%; /* Make sure images fill their container */
+          height: auto; /* Maintain aspect ratio */
+        }
+
+
+        .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .logo {
+        width: 50px;
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .brand-text {
+        font-size: 18px;
+        height: 100vh; /* Adjust as needed */
+    }
+
+    .logo {
+        width: 50px; /* Adjust size as needed */
+        height: auto;
+        margin-right: 10px; /* Adjust spacing between image and text */
+    }
+
+    .brand-text {
+        font-size: 18px; /* Adjust font size as needed */
+    }
+
+    .login-button {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .rounded-box {
+        width: 300px;
+        height: 200px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Center vertically */
+        align-items: center; /* Center horizontally */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 100px;
+    }
+
+    #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,22 +240,68 @@
         <p class="description">Exercise to your own beat!</p>
     </div>
 
-    <div class="container">
-        <div>
-            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Fun Facts!</div>
-            <ul id="reorderable-list">
-                <li>Ever heard of lifesaving songs? These songs are ideal for hitting the 100-120 beats per minute required for chest compressions: Stayin' Alive, Baby Shark, Eye of the Tiger, I will Survive, and Dancing Queen.</li>
-                <li>Music improves physical health by helping people stay within the optimal tempo for enhanced workout performance. Studies have shown that listening to music increases endurance by 15%!</li>
-                <li>Did you know? The more muscle mass you have, the more fat your body burns while resting!</li>
-                <li>Do you have a dog? Man's best friend may just be saving your life! Owning pets improves mental health, reduces risk for heart disease, and lowers blood pressure and cholesterol levels. Talk about a great pal!</li>
-                <li>Studies have shown that synchronized and upbeat music can have positive physical and psychological effects. Those who exercise with energetic music have an increased pace, more repetitions, and travel further.</li>
-                <li>Physical activity such as exercise improves your physical health and staves off diseases. Listening to music benefits mental health by improving sleep quality, mood, mental alertness, and memory. Physical activity and music combined improves your overall wellbeing!</li>
-                <li>A 2007 study found that music, classical in particular, can help make plants grow faster.</li>
-                <li>Exercise has been shown to keep your blood sugar in check, improve cardiovascular health, boost your mood, and help you live longer.</li>
-                <li>The first and only band to play on all seven continents is Metallica.</li>
-            </ul>
-        </div>
-    </div>
+    <script>
+        const playlists = ['Playlist #1', 'Playlist #2', 'Playlist #3', 'Playlist #4'];
+        const container = document.querySelector('.container');
+
+        const row = document.createElement('div');
+        row.classList.add('row');
+
+        playlists.forEach(playlist => {
+            const col = document.createElement('div');
+            col.classList.add('col-md-4');
+
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.style.width = '18rem';
+
+            // Fetch playlist images (replace this with your actual image URLs)
+            const playlistImages = JSON.parse("{{ images|safe|escapejs }}");
+
+            // Create container for image collage
+            const imageCollage = document.createElement('div');
+            imageCollage.classList.add('image-collage');
+
+            // Add images to the image collage
+            playlistImages.slice(0, 4).forEach(imageUrl => {
+                const imageItem = document.createElement('div');
+                imageItem.classList.add('image-item');
+
+                const image = document.createElement('img');
+                image.src = imageUrl;
+                image.alt = 'Playlist Image';
+
+                imageItem.appendChild(image);
+                imageCollage.appendChild(imageItem);
+            });
+
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body');
+
+            const cardTitle = document.createElement('h5');
+            cardTitle.classList.add('card-title');
+            cardTitle.textContent = playlist;
+
+            const cardText = document.createElement('p');
+            cardText.classList.add('card-text');
+            cardText.textContent = 'Author Name';
+
+            const heartIcon = document.createElement('span');
+            heartIcon.classList.add('heart-icon');
+            heartIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                    </svg>`;
+
+            cardBody.appendChild(heartIcon);
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            card.appendChild(imageCollage); // Append image collage container
+            card.appendChild(cardBody);
+            col.appendChild(card);
+            row.appendChild(col);
+        });
+
+        container.appendChild(row);
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
