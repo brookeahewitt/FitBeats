@@ -113,3 +113,6 @@ def info(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+def completeWorkout(request):
+    return render(request, 'completeWorkout.html', {'request': request})

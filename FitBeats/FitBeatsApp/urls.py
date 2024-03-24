@@ -11,5 +11,5 @@ urlpatterns = [
     path('info', views.info, name="info"),
     path('logout/', views.logout_view, name='logout'),
     path('accounts/', include('allauth.urls')),
-
+    path('completeWorkout', views.completeWorkout, name="completeWorkout")
 ]
