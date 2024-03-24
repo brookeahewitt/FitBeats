@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from . import views
@@ -24,4 +26,4 @@ urlpatterns = [
     path('stretching', views.stretching, name='stretching'),
     path('pilates', views.pilates, name='pilates'),
     path('submit_workout/', views.submit_workout, name='submit_workout'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

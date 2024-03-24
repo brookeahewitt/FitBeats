@@ -2,6 +2,8 @@ import random
 
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from dotenv import load_dotenv
 import os
@@ -10,7 +12,8 @@ from requests import post, get
 import json
 import logging
 
-from .models import Playlist, Workout_Segment, Entire_Workout, Exercise
+from .models import Playlist, Workout_Segment, Entire_Workout, Exercise, Song
+
 
 load_dotenv()
 
@@ -155,39 +158,36 @@ def completeWorkout(request):
     return render(request, 'completeWorkout.html', {'request': request})
 
 def submit_workout(request):
-    def submit_workout(request):
-        if request.method == 'POST':
-            # Process the form data
-            duration = request.POST.get('duration')
-            intensity = request.POST.get('intensity')
-            selected_exercises = request.POST.getlist('selectedExercises')  # Already a list, no need to parse
+    if request.method == 'POST':
+        # Process the form data
+        duration = request.POST.get('duration')
+        intensity = request.POST.get('intensity')
+        selected_exercises = request.POST.getlist('selectedExercises')
 
-            playlist = Playlist.objects.create(
-                name="Custom Playlist",
+        # Create a new playlist
+        playlist = Playlist.objects.create(name="Custom Playlist")
+
+        for exercise_name in selected_exercises:
+            # Get or create the Exercise instance
+            exercise, _ = Exercise.objects.get_or_create(exercise_name=exercise_name)
+
+            # Create a new Workout_Segment instance
+            segment = Workout_Segment.objects.create(
+                exercise_names=exercise,
+                workout_type="Custom",
+                duration=duration,
+                intensity=intensity
             )
 
-            for exercisename in selected_exercises:
-                exercise, _ = Exercise.objects.get_or_create(exercise_name=exercisename)
-                segment = Workout_Segment.objects.create(
-                    exercise_names=exercise,
-                    workout_type="Custom",
-                    duration=duration,
-                    intensity=intensity
-                )
-                # Add the segment to the playlist
-                playlist.songs.add(segment)
+            # Add the segment to the playlist
+            # Note: You should add songs to the playlist, so convert the Workout_Segment to a Song if needed
+            song = Song.objects.create(song_name=exercise_name, artist_name="Unknown", duration=duration,
+                                       cover_art_link="", preview_sound="")
+            playlist.songs.add(song)
 
-            # Create an Entire_Workout instance and associate it with the playlist
-            entire_workout = Entire_Workout.objects.create(
-                playlist=playlist,
-                cover_image = ""
-            )
+        # Redirect to a success page
+        return HttpResponseRedirect(reverse('generate'))
 
-            # Perform any necessary actions (e.g., save data to the database)
-            # Example: Save the form data to the database
-            # workout = Workout(duration=duration, intensity=intensity)
-            # workout.save()
-            return HttpResponseRedirect(reverse('generate'))
-
-        return render(request, 'generate.html')
+        # If the request method is not POST, render the form again or return an appropriate response
+    return render(request, 'generate.html')
 
