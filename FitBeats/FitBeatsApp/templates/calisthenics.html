@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% csrf_token %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,7 +121,7 @@
 
 .form-control {
     font-size: 20px;
-    width: 15%;
+    width: 30%;
 }
 
 .form-label {
@@ -146,7 +147,20 @@
 
 }
 
+.orange-button {
+    background-color: #ff9d48;
+    color: white;
+    font-size: 20px; /* Adjust font size as needed */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
+.orange-button:hover {
+    background-color: darkorange;
+}
 
     </style>
 
@@ -157,97 +171,119 @@
 </head>
 {% include 'navbar.html' %}
 <body>
-
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Calisthenics</h1>
         <p class="description">Customize your workout</p>
     </div>
    <div class="container">
-    <h1 style="font-family: Quicksand, sans-serif">Type of Exercise</h1>
+    <h1 style="font-family: Quicksand, sans-serif">Types of Exercise</h1>
     <div class="row" style="margin-top: 40px">
     </div>
-        <div class="checkboxes">
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Burpees">
-        <span class="checkbox-label">Burpees</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Chin Ups">
-        <span class="checkbox-label">Chin Ups</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Crunches">
-        <span class="checkbox-label">Crunches</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Dips">
-        <span class="checkbox-label">Dips</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Hand Stands">
-        <span class="checkbox-label">Hand Stands</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Hollow Body Hold">
-        <span class="checkbox-label">Hollow Body Hold</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Leg Raises">
-        <span class="checkbox-label">Leg Raises</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Lunges">
-        <span class="checkbox-label">Lunges</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Mountain Climbers">
-        <span class="checkbox-label">Mountain Climbers</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Planks">
-        <span class="checkbox-label">Planks</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Pull Ups">
-        <span class="checkbox-label">Pull Ups</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Pushups">
-        <span class="checkbox-label">Pushups</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Russian Twist">
-        <span class="checkbox-label">Russian Twist</span>
-    </label>
-    <label class="checkbox">
-        <input type="checkbox" name="workout" value="Squats">
-        <span class="checkbox-label">Squats</span>
-    </label>
-</div>
-</div>
+    <div class="checkboxes">
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Bench Press">
+            <span class="checkbox-label">Burpees</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Bicep Curl">
+            <span class="checkbox-label">Chin-Ups</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Bent-over Row">
+            <span class="checkbox-label">Crunches</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Calf Raise">
+            <span class="checkbox-label">Dips</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Chest Fly">
+            <span class="checkbox-label">Hand Stands</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Deadlift">
+            <span class="checkbox-label">Hollow Body Hold</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Hip Thrust">
+            <span class="checkbox-label">Leg Raises</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Leg Extension">
+            <span class="checkbox-label">Lunges</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Leg Press">
+            <span class="checkbox-label">Mountain Climbers</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Lateral Raise">
+            <span class="checkbox-label">Planks</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Lunge">
+            <span class="checkbox-label">Pull-Ups</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Shoulder Press">
+            <span class="checkbox-label">Push-Ups</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Squat">
+            <span class="checkbox-label">Russian Twist</span>
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" name="workout" value="Tricep Press">
+            <span class="checkbox-label">Squat</span>
+        </label>
+    </div>
 </div>
    </div>
+  <form id="workoutForm" action="/submit_workout/" method="post">
+      {% csrf_token %}
     <div id="duration" class="fade-content">
-    <div class="container">
-        <h1 style="font-family: Quicksand, sans-serif">Duration</h1>
-        <div class="row" style="margin-top: 40px">
-        </div>
-        <div class="form-outline" style="display: flex; justify-content: center; align-items: center;">
-            <input type="number" id="typeNumber" min=0 class="form-control" style="margin-right: 10px;">
-            <label class="form-label" for="typeNumber" style="margin-left: 10px;">Minutes</label>
-        </div>
+    <!-- Duration input -->
+    <div class="form-outline" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <label class="form-label" for="typeNumber">Duration</label>
+        <input type="number" id="typeNumber" name="duration" min="0" class="form-control">
     </div>
-    <div class="container">
-        <h1 style="font-family: Quicksand, sans-serif">Workout Intensity</h1>
-        <div class="row" style="margin-top: 40px">
-        </div>
-        <label for="customRange2" class="form-label">Low</label>
-        <input type="range" class="form-range" min="0" max="2" id="customRange2" style="margin-right: 10px;">
-        <label for="customRange2" class="form-label">High</label>
+    <br><br>
+    <div class="form-outline" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <label class="form-label" for="num_breaks">Number of Breaks</label>
+        <input type="number" id="num_breaks" name="num_breaks" min="0" max="<MAX_NUMBER>" class="form-control">
     </div>
-        <button>Add</button>
 </div>
 
+        <!-- Intensity input -->
+        <div class="container">
+            <label for="customRange2" class="form-label">Low</label>
+            <input type="range" class="form-range" name="intensity" min="0" max="2" id="customRange2" style="margin-right: 10px;">
+            <label for="customRange2" class="form-label">High</label>
+        </div>
+
+        <!-- Hidden input for selected exercises -->
+        <input type="hidden" id="selectedExercises" name="selectedExercises">
+
+        <button id="addButton" class="orange-button" >Add</button>
+    </div>
+</form>
+
+<script>
+        // Function to update the max attribute of num_breaks input
+        function updateMaxNumBreaks() {
+            const numCheckboxesSelected = document.querySelectorAll('.checkbox input[type="checkbox"]:checked').length;
+            const numBreaksInput = document.getElementById('num_breaks');
+            numBreaksInput.max = numCheckboxesSelected > 0 ? numCheckboxesSelected - 1 : 0;
+        }
+
+        // Event listener to update max num_breaks on checkbox selection
+        document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateMaxNumBreaks);
+        });
+
+        // Initial update on page load
+        updateMaxNumBreaks();
+    </script>
 
 <script>
     document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(radio => {
@@ -256,6 +292,23 @@
             const duration = document.getElementById('duration');
             duration.classList.add('active');
         });
+    });
+</script>
+
+
+    <script>
+    document.getElementById('addButton').addEventListener('click', function() {
+        // Get selected exercises
+        const selectedExercises = [];
+        document.querySelectorAll('.checkbox input[type="checkbox"]:checked').forEach(checkbox => {
+            selectedExercises.push(checkbox.value);
+        });
+
+        // Set selected exercises to the hidden input field
+        document.getElementById('selectedExercises').value = JSON.stringify(selectedExercises);
+
+        // Submit the form
+        document.getElementById('workoutForm').submit();
     });
 </script>
 
