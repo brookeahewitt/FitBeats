@@ -203,7 +203,6 @@
     {% if user.is_authenticated %}
     {% include 'navbar.html' %}
     {% csrf_token %}
-    </form>
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
         <p class="description">Find what others are listening to</p>
@@ -211,7 +210,7 @@
     <div class="container"></div>
 
     <script>
-        const playlists = ['Playlist #1', 'Playlist #2', 'Playlist #3', 'Playlist #4'];
+        const playlists = playlists;
         const container = document.querySelector('.container');
 
         const row = document.createElement('div');
@@ -226,7 +225,7 @@
             card.style.width = '18rem';
 
             // Fetch playlist images (replace this with your actual image URLs)
-            const playlistImages = JSON.parse("{{ images|safe|escapejs }}");
+            const playlistImages = JSON.parse("{{ cover_art_urls|safe|escapejs }}");
 
             // Create container for image collage
             const imageCollage = document.createElement('div');
