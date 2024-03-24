@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .box {
+            height: 200px; /* Set height as needed */
+            background-color: rgba(253, 139, 63, 0.99); /* Set background color to orange */
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Align content in column */
+            justify-content: center;
+            align-items: center;
+            color: white; /* Set text color to white */
+            font-size: 24px;
+            padding: 40px;
+        }
+        .description {
+            text-align: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            font-size: 20px;
+            font-family: Inter, sans-serif/* Set font size as needed */
+        }
+
+        .container {
+            text-align: center;
+            font-family: Inter, sans-serif;
+            margin-top: 50px;
+            color: #4d4d4d;
+        }
+
+        .card-body .card-title {
+            margin-top: 10px;
+        }
+
+        .image-item img {
+          width: 100%; /* Make sure images fill their container */
+          height: auto; /* Maintain aspect ratio */
+        }
+
+
+        .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Adjust as needed */
+    }
+
+    .brand-text {
+        font-size: 18px; /* Adjust font size as needed */
+    }
+
+    .login-button {
+    display: block;
+    margin-top: 10px; /* Adjust the spacing between the brand text and the button */
+    text-align: center; /* Center the button horizontally */
+    font-size: 16px; /* Adjust the font size */
+    /* Add more styling as needed */
+    }
+
+        #reorderable-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0;
+        }
+        #reorderable-list li {
+            border: 1px solid #ccc; /* Add border around each item */
+            padding: 10px; /* Add padding to provide spacing between text and border */
+            margin-bottom: 10px; /* Add margin bottom to provide spacing between items */
+            cursor: move; /* Change cursor to indicate draggable */
+        }
+
+        ul li {
+            max-width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    {% load socialaccount %}
+    {% if user.is_authenticated %}
+    {% include 'navbar.html' %}
+    </form>
+    <div class="box">
+        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Finalize Workout</h1>
+    </div>
+    <div class="container">
+        <div>
+            <div style="text-align: left; padding-bottom: 30px; font-size: 30px; font-family: Quicksand, sans-serif">Confirm Order of Workout</div>
+            <p>Reorder the workout by dragging </p>
+            <ul id="reorderable-list">
+                <li draggable="true">Item 1</li>
+                <li draggable="true">Item 2</li>
+                <li draggable="true">Item 3</li>
+                <li draggable="true">Item 4</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // JavaScript code for making the list reorderable
+        const list = document.getElementById('reorderable-list');
+
+        list.addEventListener('dragstart', function(event) {
+            event.target.classList.add('dragging');
+        });
+
+        list.addEventListener('dragend', function(event) {
+            event.target.classList.remove('dragging');
+        });
+
+        list.addEventListener('dragover', function(event) {
+            event.preventDefault();
+            const afterElement = getDragAfterElement(list, event.clientY);
+            const currentElement = document.querySelector('.dragging');
+            if (afterElement == null) {
+                list.appendChild(currentElement);
+            } else {
+                list.insertBefore(currentElement, afterElement);
+            }
+        });
+
+        list.addEventListener('drop', function(event) {
+            event.preventDefault();
+        });
+
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+    </script>
+    {% else %}
+    <div class="centered">
+    <a class="navbar-brand" style="font-family: Inter, sans-serif;">
+        <img src="static/images/image2.png" alt="FitBeats Logo">
+        <span class="brand-text">FitBeats</span>
+    </a>
+    </div>
+    <a href="{% provider_login_url 'google' %}" class="login-button">Login with Google</a>
+    {% endif %}
+</body>
+</html>

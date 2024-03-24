@@ -17,5 +17,6 @@ urlpatterns = [
     path('yoga', views.yoga, name='yoga'),
     path('calisthenics', views.calisthenics, name='calisthenics'),
     path('stretching', views.stretching, name='stretching'),
+    path('completeWorkout', views.completeWorkout, name="completeWorkout")
 
 ]
