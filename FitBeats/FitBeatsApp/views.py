@@ -126,9 +126,17 @@ def get_recommendations(token, genres, min_tempo, max_tempo):
 # images = images[:4]
 
 
-# def index(request):
-#     images_json = json.dumps(images)
-#     return render(request, 'index.html', {'images': images_json, 'request': request})
+def index(request):
+    playlists = Playlist.objects.all()
+    cover_art_urls = []
+
+    for playlist in playlists:
+        # Fetch the first four songs in the playlist to use their cover art links
+        songs = playlist.songs_in_playlist.all()[:4]
+        for song in songs:
+            cover_art_urls.append(song.cover_art_link)
+
+    return render(request, 'index.html', {'paylists': playlists, 'cover_art_urls': cover_art_urls, 'request': request})
 
 # token = get_token()
 # playlist = generate_playlist(10, 10)
