@@ -14,7 +14,6 @@ import random
 
 from .models import Playlist, Entire_Workout, Exercise, Song
 
-
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
@@ -43,6 +42,7 @@ def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
 def generate_playlist(target_duration, max_iterations, token):
+
     playlist = []
     current_duration = 0
     iteration = 0
@@ -94,6 +94,8 @@ def make_songs(playlist, playlist_name):
 def track_duration_mins(track):
     # Calculate the duration of the track
     return track["duration_ms"] / 60000
+
+
 def get_recommendations(token, genres, min_tempo, max_tempo):
     url = "https://api.spotify.com/v1/recommendations"
     headers = get_auth_header(token)
@@ -110,6 +112,7 @@ def get_recommendations(token, genres, min_tempo, max_tempo):
     json_result = json.loads(result.content)
     tracks = json_result["tracks"]
     return tracks
+
 
 # token = get_token()
 # playlist = generate_playlist(10, 10)
@@ -151,26 +154,32 @@ def exercises(request):
 def generate(request):
     return render(request, 'generate.html', {'request': request})
 
+
 def cardio(request):
     genre = request.GET.get('genre')
     print("Genre:", genre)  # Add this line for debugging
     return render(request, 'cardio.html', {'genre': genre})
 
+
 def weight_lifting(request):
     genre = request.GET.get('genre')
     return render(request, 'weight_lifting.html', {'genre': genre})
+
 
 def pilates(request):
     genre = request.GET.get('genre')
     return render(request, 'pilates.html', {'genre': genre})
 
+
 def yoga(request):
     genre = request.GET.get('genre')
     return render(request, 'yoga.html', {'genre': genre})
 
+
 def calisthenics(request):
     genre = request.GET.get('genre')
     return render(request, 'calisthenics.html', {'genre': genre})
+
 
 def stretching(request):
     genre = request.GET.get('genre')
@@ -180,6 +189,7 @@ def stretching(request):
 def info(request):
     return render(request, 'info.html', {'request': request})
 
+
 def logout_view(request):
     logout(request)
     return redirect('index')
@@ -188,12 +198,13 @@ def logout_view(request):
 def completeWorkout(request):
     return render(request, 'completeWorkout.html', {'request': request})
 
+
 def submit_workout(request):
     if request.method == 'POST':
         # Process the form data
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
-        genre =  request.POST.get('selectedGenre')
+        genre = request.POST.get('selectedGenre')
         num_breaks = int(request.POST.get('num_breaks'))
         selected_exercises = request.POST.getlist('selectedExercises')
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
@@ -213,7 +224,7 @@ def submit_workout(request):
         val = 1
         if num_breaks > 0:
             for i in range(num_breaks):
-                random_num = random.randint(1, len(exercise_names)-1)
+                random_num = random.randint(1, len(exercise_names) - 1)
                 exercise_names.insert(random_num, "Break " + str(val))
                 val += 1
 
@@ -231,3 +242,9 @@ def submit_workout(request):
 
         # If the request method is not POST, render the form again or return an appropriate response
     return render(request, 'generate.html')
+
+
+
+def activity(request):
+    return render(request, 'activity.html', {'request': request})
+

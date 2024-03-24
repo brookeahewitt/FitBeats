@@ -1,10 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>Explore</title>
+{% include 'navbar.html' %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Playlists</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
+        body {
+            background-color: #faf9f6;
+        }
+
+        .navbar .navbar-nav {
+            justify-content: flex-end;
+        }
+
+        .navbar-nav .nav-item {
+            margin-left: auto;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .col {
+            flex: 1;
+            margin: 0 50px; /* Adjust the margin as needed */
+        }
+
+        .box {
+            height: 250px; /* Set height as needed */
+            background-color: #ccc; /* Set background color as needed */
+        }
+
+        .text {
+            text-align: center; /* Center text horizontally */
+        }
+
+        ul li a {
+            font-family: Inter, sans-serif;
+            font-size: 18px;
+        }
+
+        .box {
+            height: 200px; /* Set height as needed */
+            background-color: rgba(253, 139, 63, 0.99); /* Set background color to orange */
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Align content in column */
+            justify-content: center;
+            align-items: center;
+            color: white; /* Set text color to white */
+            font-size: 24px;
+            padding: 40px;
+        }
+        .description {
+            text-align: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            font-size: 20px;
+            font-family: Inter, sans-serif/* Set font size as needed */
+        }
+
+        .container {
+            text-align: center;
+            font-family: Inter, sans-serif;
+            margin-top: 50px;
+            color: #4d4d4d;
+        }
+
+        .card {
+            margin: 10px;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-family: Quicksand, sans-serif;
+            font-size: 20px;
+        }
+
+        #reorderable-list {
+            list-style-type: none; /* Remove default bullet points */
+            padding: 0;
+        }
+        #reorderable-list li {
+            border: 1px solid #ccc; /* Add border around each item */
+            border-radius: 10px;
+            padding: 10px; /* Add padding to provide spacing between text and border */
+            margin-bottom: 10px; /* Add margin bottom to provide spacing between items */
+            cursor: move; /* Change cursor to indicate draggable */
+        }
+
         .row {
           display: flex;
         }
@@ -140,75 +226,19 @@
         overflow: hidden;
     }
 
-    .button-29 {
-      align-items: center;
-      appearance: none;
-      background-image: radial-gradient(100% 100% at 100% 0, #ff9d48 0, #ff4b2b 100%); /* Change blue to orange */
-      border: 0;
-      border-radius: 6px;
-      box-shadow: rgba(255, 77, 77, .4) 0 4px 8px, rgba(255, 77, 77, .3) 0 7px 13px -3px, rgba(255, 77, 77, .5) 0 -3px 0 inset;
-      box-sizing: border-box;
-      color: #fff;
-      cursor: pointer;
-      display: inline-flex;
-      font-family: "JetBrains Mono",monospace;
-      height: 60px;
-      justify-content: center;
-      line-height: 1;
-      list-style: none;
-      overflow: hidden;
-      padding: 40px 40px;
-      position: relative;
-      text-align: left;
-      text-decoration: none;
-      transition: box-shadow .15s,transform .15s;
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: manipulation;
-      white-space: nowrap;
-      will-change: box-shadow,transform;
-      font-size: 24px;
-    }
-
-    .button-29:focus {
-       box-shadow: rgba(255, 77, 77, .4) 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(255, 77, 77, .5) 0 -3px 0 inset;
-    }
-
-    .button-29:hover {
-      box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(255, 77, 77, .5) 0 -3px 0 inset;
-      transform: translateY(-2px);
-    }
-
-    .button-29:active {
-      box-shadow: #3c4fe0 0 3px 7px inset;
-      transform: translateY(2px);
-    }
-
-    .solid-rectangle {
-        width: 100%; /* Adjust width as needed */
-        height: 5%; /* Adjust height as needed */
-        background-color: #ff9d48; /* Solid color for the rectangle */
-        position: fixed;
-        top: 0;
-        right: 0;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-    }
-
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100..900&family=Quicksand:wght@300..700&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    {% load socialaccount %}
-    {% if user.is_authenticated %}
-    {% include 'navbar.html' %}
-    {% csrf_token %}
-    </form>
+
     <div class="box">
-        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
-        <p class="description">Find what others are listening to</p>
+        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">{{request.user}}'s Playlists</h1>
+        <p class="description">Exercise to your own beat!</p>
     </div>
-    <div class="container"></div>
 
     <script>
         const playlists = ['Playlist #1', 'Playlist #2', 'Playlist #3', 'Playlist #4'];
@@ -272,20 +302,9 @@
         });
 
         container.appendChild(row);
-    </script>
-    {% else %}
-        <video autoplay muted loop id="video-background">
-            <source src="static/images/exercise.mp4" type="video/mp4">
-            Your browser does not support HTML5 video.
-        </video>
-        <div class="solid-rectangle"></div>
-        <div class="rounded-box">
-            <img src="static/images/FitBeatsLogo2.JPG" alt="FitBeats Logo" style="width: 225px; height:  150px; border-radius: 20px;">
-            <br> <br>
 
-            <br> <br>
-            <a class="button-29" role="button" href="{% provider_login_url 'google' %}">Let's Get Started!</a>
-        </div>
-    {% endif %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
