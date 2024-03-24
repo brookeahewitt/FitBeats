@@ -16,4 +16,7 @@ https://www.scientificamerican.com/article/psychology-workout-music/#:~:text=Mus
 https://www.center4research.org/can-listening-music-improve-workout/
 https://athletics.carleton.ca/2015/12-fun-facts-about-exercising/
 
+Research on optimal bpms to pair with music:
+https://www.cnet.com/health/fitness/can-a-playlist-boost-your-performance-yes-with-the-right-songs/
+
 Adobe was used for stock photos.
