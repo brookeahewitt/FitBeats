@@ -11,4 +11,18 @@ class Song(models.Model):
 class Playlist(models.Model):
     songs = models.ManyToManyField(Song, related_name='songs_in_playlist', blank=True)
     cover_image = models.URLField(max_length=400)
+    name = models.CharField(max_length=200)
+
+class Exercise(models.Model):
+    exercise_name = models.CharField(max_length=200)
+
+class Workout_Segment(models.Model):
+    exercise_names = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    workout_type = models.CharField(max_length=200)
+    duration = models.DecimalField(decimal_places=2, max_digits=10)
+    intensity = models.DecimalField(decimal_places=2, max_digits=10)
+
+class Entire_Workout(models.Model):
+    segments = models.ForeignKey(Workout_Segment, on_delete=models.CASCADE)
+    playlist = models.ForeignKey(Playlist, on_delete=models.CASCADE)
 

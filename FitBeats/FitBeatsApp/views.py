@@ -8,6 +8,9 @@ import os
 import base64
 from requests import post, get
 import json
+import logging
+
+from .models import Playlist, Workout_Segment, Entire_Workout, Exercise
 
 load_dotenv()
 
@@ -81,8 +84,21 @@ def get_recommendations(token, genres, min_tempo, max_tempo):
     tracks = json_result["tracks"]
     return tracks
 
+# token = get_token()
+# playlist = generate_playlist(10, 10)
+#
+# images = []
+#
+# for track in playlist:
+#     print(track["name"], track["duration_ms"])
+#     images.append(track["album"]["images"][0]["url"])
+#
+# images = images[:4]
 
 
+# def index(request):
+#     images_json = json.dumps(images)
+#     return render(request, 'index.html', {'images': images_json, 'request': request})
 
 # token = get_token()
 # playlist = generate_playlist(10, 10)
@@ -143,7 +159,28 @@ def submit_workout(request):
         # Process the form data
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
-        selected_exercises = request.POST.getlist('selectedExercises')
+        selected_exercises_json = request.POST.getlist('selectedExercises')
+        selected_exercises = json.loads(selected_exercises_json)
+
+        playlist = Playlist.objects.create(
+            name="Custom Playlist",
+        )
+
+        for exercisename in selected_exercises:
+            exercise = Exercise.objects.get_or_create(exercise_name=exercisename)
+            segment = Workout_Segment.objects.create(
+                exercise_names=exercise,
+                workout_type="Custom",
+                duration=duration,
+                intensity=intensity
+            )
+            # Add the segment to the playlist
+            playlist.songs.add(segment)
+
+            # Create an Entire_Workout instance and associate it with the playlist
+        entire_workout = Entire_Workout.objects.create(
+            playlist=playlist
+        )
 
         # Perform any necessary actions (e.g., save data to the database)
         # Example: Save the form data to the database

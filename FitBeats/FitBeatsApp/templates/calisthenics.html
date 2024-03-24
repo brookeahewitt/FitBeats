@@ -191,64 +191,64 @@
     <h1 style="font-family: Quicksand, sans-serif">Type of Exercise</h1>
     <div class="row" style="margin-top: 40px">
     </div>
-        <div class="radio-buttons">
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Burpees">
-            <span class="radio-label">Burpees</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Chin Ups">
-            <span class="radio-label">Chin Ups</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Crunches">
-            <span class="radio-label">Crunches</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Dips">
-            <span class="radio-label">Dips</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Hand Stands">
-            <span class="radio-label">Hand Stands</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Hollow Body Hold">
-            <span class="radio-label">Hollow Body Hold</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Leg Raises">
-            <span class="radio-label">Leg Raises</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Lunges">
-            <span class="radio-label">Lunges</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Mountain Climbers">
-            <span class="radio-label">Mountain Climbers</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Planks">
-            <span class="radio-label">Planks</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Pull Ups">
-            <span class="radio-label">Pull Ups</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Pushups">
-            <span class="radio-label">Pushups</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Russian Twist">
-            <span class="radio-label">Russian Twist</span>
-        </label>
-        <label class="radio-button">
-            <input type="radio" name="workout" value="Squats">
-            <span class="radio-label">Squats</span>
-        </label>
-    </div>
+        <div class="checkboxes">
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Burpees">
+        <span class="checkbox-label">Burpees</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Chin Ups">
+        <span class="checkbox-label">Chin Ups</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Crunches">
+        <span class="checkbox-label">Crunches</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Dips">
+        <span class="checkbox-label">Dips</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Hand Stands">
+        <span class="checkbox-label">Hand Stands</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Hollow Body Hold">
+        <span class="checkbox-label">Hollow Body Hold</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Leg Raises">
+        <span class="checkbox-label">Leg Raises</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Lunges">
+        <span class="checkbox-label">Lunges</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Mountain Climbers">
+        <span class="checkbox-label">Mountain Climbers</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Planks">
+        <span class="checkbox-label">Planks</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Pull Ups">
+        <span class="checkbox-label">Pull Ups</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Pushups">
+        <span class="checkbox-label">Pushups</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Russian Twist">
+        <span class="checkbox-label">Russian Twist</span>
+    </label>
+    <label class="checkbox">
+        <input type="checkbox" name="workout" value="Squats">
+        <span class="checkbox-label">Squats</span>
+    </label>
+</div>
 </div>
 </div>
    </div>
@@ -275,7 +275,7 @@
 
 
 <script>
-    document.querySelectorAll('.checkbox input[type="radio"]').forEach(radio => {
+    document.querySelectorAll('.checkbox input[type="checkbox"]').forEach(radio => {
         radio.addEventListener('click', function() {
             if (!this.checked) return;
             const duration = document.getElementById('duration');
