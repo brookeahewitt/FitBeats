@@ -41,7 +41,7 @@ def get_token():
 def get_auth_header(token):
     return {"Authorization": "Bearer " + token}
 
-def generate_playlist(target_duration, max_iterations, token):
+def generate_playlist(target_duration, max_iterations, token, genre):
 
     playlist = []
     current_duration = 0
@@ -49,7 +49,7 @@ def generate_playlist(target_duration, max_iterations, token):
 
     while iteration < max_iterations:
         # Retrieve a batch of candidate tracks
-        candidate_tracks = get_recommendations(token, ['pop'], 120, 140)
+        candidate_tracks = get_recommendations(token, [genre], 120, 140)
         random.shuffle(candidate_tracks)
 
         for track in candidate_tracks:
@@ -99,6 +99,7 @@ def track_duration_mins(track):
 def get_recommendations(token, genres, min_tempo, max_tempo):
     url = "https://api.spotify.com/v1/recommendations"
     headers = get_auth_header(token)
+
     query = {
         "seed_genres": ",".join(genres),
         "min_tempo": min_tempo,
@@ -219,7 +220,7 @@ def submit_workout(request):
         exercise_names = json.loads(selected_exercises_string)  # Parse the JSON string
         # Create a new playlist
         token = get_token()
-        playlist = generate_playlist(int(duration), 10, token)  # Adjust parameters as needed
+        playlist = generate_playlist(int(duration), 10, token, genre, intensity)  # Adjust parameters as needed
         songs, created_playlist = make_songs(playlist, "Custom Playlist")
 
         entire_workout = Entire_Workout.objects.create(
