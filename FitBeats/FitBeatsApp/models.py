@@ -10,4 +10,5 @@ class Song(models.Model):
 
 class Playlist(models.Model):
     songs = models.ManyToManyField(Song, related_name='songs_in_playlist', blank=True)
+    cover_image = models.URLField(max_length=400)
 

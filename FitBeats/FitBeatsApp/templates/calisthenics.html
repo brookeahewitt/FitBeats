@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calisthenics</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+
+        body {
+            background-color: #faf9f6;
+        }
+
+        .navbar .navbar-nav {
+            justify-content: flex-end;
+        }
+
+        .navbar-nav .nav-item {
+            margin-left: auto;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .col {
+            flex: 1;
+            margin: 0 50px; /* Adjust the margin as needed */
+        }
+
+        .box {
+            height: 250px; /* Set height as needed */
+            background-color: #ccc; /* Set background color as needed */
+        }
+
+        .text {
+            text-align: center; /* Center text horizontally */
+        }
+
+        ul li a {
+            font-family: Inter, sans-serif;
+            font-size: 18px;
+        }
+
+        .box {
+            height: 200px; /* Set height as needed */
+            background-color: rgba(253, 139, 63, 0.99); /* Set background color to orange */
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Align content in column */
+            justify-content: center;
+            align-items: center;
+            color: white; /* Set text color to white */
+            font-size: 24px;
+            padding: 40px;
+        }
+        .description {
+            text-align: center;
+            margin-top: 20px; /* Adjust margin top as needed */
+            font-size: 20px;
+            font-family: Inter, sans-serif/* Set font size as needed */
+        }
+
+        .container {
+            text-align: center;
+            font-family: Inter, sans-serif;
+            margin-top: 50px;
+            color: #4d4d4d;
+        }
+
+        .card {
+            margin: 10px;
+            padding: 20px;
+
+
+        }
+
+        .card-title {
+            font-family: Quicksand, sans-serif;
+            font-size: 20px;
+        }
+
+        .clickable {
+    position: relative;
+    cursor: pointer;
+}
+
+.clickable::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.card:hover::before {
+    background-color: rgba(253, 139, 63, .15);
+}
+
+
+
+.checkbox {
+    margin-right: 25px;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.checkbox input[type="radio"]{
+    accent-color: rgba(253, 139, 63, 0.99); /* Checked color */
+}
+
+.form-outline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-control {
+    font-size: 20px;
+    width: 15%;
+}
+
+.form-label {
+    font-size: 20px;
+}
+
+.fade-content {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Apply transition effect */
+}
+
+.fade-content.active {
+    opacity: 1;
+}
+  .fade-content {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out; /* Apply transition effect */
+    }
+  #duration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@100;200;300;400;500;600;700;800;900&family=Inter:wght@100..900&family=Quicksand:wght@300..700&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#" style="font-family: Inter, sans-serif;">
+            <img src="static/images/image2.png" alt="FitBeats Logo">
+            FitBeats
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto" style="margin-right: 30px">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Generate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Explore</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Activity</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Info</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="box">
+        <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Calisthenics</h1>
+        <p class="description">Customize your workout</p>
+    </div>
+   <div class="container">
+    <h1 style="font-family: Quicksand, sans-serif">Type of Exercise</h1>
+    <div class="row" style="margin-top: 40px">
+    </div>
+        <div class="radio-buttons">
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Burpees">
+            <span class="radio-label">Burpees</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Chin Ups">
+            <span class="radio-label">Chin Ups</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Crunches">
+            <span class="radio-label">Crunches</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Dips">
+            <span class="radio-label">Dips</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Hand Stands">
+            <span class="radio-label">Hand Stands</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Hollow Body Hold">
+            <span class="radio-label">Hollow Body Hold</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Leg Raises">
+            <span class="radio-label">Leg Raises</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Lunges">
+            <span class="radio-label">Lunges</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Mountain Climbers">
+            <span class="radio-label">Mountain Climbers</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Planks">
+            <span class="radio-label">Planks</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Pull Ups">
+            <span class="radio-label">Pull Ups</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Pushups">
+            <span class="radio-label">Pushups</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Russian Twist">
+            <span class="radio-label">Russian Twist</span>
+        </label>
+        <label class="radio-button">
+            <input type="radio" name="workout" value="Squats">
+            <span class="radio-label">Squats</span>
+        </label>
+    </div>
+</div>
+</div>
+   </div>
+    <div id="duration" class="fade-content">
+    <div class="container">
+        <h1 style="font-family: Quicksand, sans-serif">Duration</h1>
+        <div class="row" style="margin-top: 40px">
+        </div>
+        <div class="form-outline" style="display: flex; justify-content: center; align-items: center;">
+            <input type="number" id="typeNumber" min=0 class="form-control" style="margin-right: 10px;">
+            <label class="form-label" for="typeNumber" style="margin-left: 10px;">Minutes</label>
+        </div>
+    </div>
+    <div class="container">
+        <h1 style="font-family: Quicksand, sans-serif">Workout Intensity</h1>
+        <div class="row" style="margin-top: 40px">
+        </div>
+        <label for="customRange2" class="form-label">Low</label>
+        <input type="range" class="form-range" min="0" max="2" id="customRange2" style="margin-right: 10px;">
+        <label for="customRange2" class="form-label">High</label>
+    </div>
+        <button>Add</button>
+</div>
+
+
+<script>
+    document.querySelectorAll('.checkbox input[type="radio"]').forEach(radio => {
+        radio.addEventListener('click', function() {
+            if (!this.checked) return;
+            const duration = document.getElementById('duration');
+            duration.classList.add('active');
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

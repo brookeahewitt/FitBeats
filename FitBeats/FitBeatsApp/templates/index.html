@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-{% include 'navbar.html' %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore</title>
     <style>
         .row {
           display: flex;
@@ -29,6 +27,9 @@
           margin-bottom: 20px;
         }
 
+        .card {
+            margin: 20px;
+        }
         .box {
             height: 200px; /* Set height as needed */
             background-color: rgba(253, 139, 63, 0.99); /* Set background color to orange */
@@ -54,58 +55,224 @@
             margin-top: 50px;
             color: #4d4d4d;
         }
+
+        .card-body .card-title {
+            margin-top: 10px;
+        }
+
+        .heart-icon {
+            margin-left: auto;
+        }
+
+        .image-collage {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr); /* 2 columns */
+          grid-gap: 10px; /* Gap between images */
+        }
+
+        .image-item img {
+          width: 100%; /* Make sure images fill their container */
+          height: auto; /* Maintain aspect ratio */
+        }
+
+
+        .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .logo {
+        width: 50px;
+        height: auto;
+        margin-right: 10px;
+    }
+
+    .brand-text {
+        font-size: 18px;
+    }
+
+    .login-button {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    }
+
+    .rounded-box {
+        width: 300px;
+        height: 200px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Center vertically */
+        align-items: center; /* Center horizontally */
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 100px;
+    }
+
+    #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover;
+        overflow: hidden;
+    }
+
+    .button-29 {
+      align-items: center;
+      appearance: none;
+      background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+      border: 0;
+      border-radius: 6px;
+      box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+      box-sizing: border-box;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: "JetBrains Mono",monospace;
+      height: 60px;
+      justify-content: center;
+      line-height: 1;
+      list-style: none;
+      overflow: hidden;
+      padding: 40px 40px;
+      position: relative;
+      text-align: left;
+      text-decoration: none;
+      transition: box-shadow .15s,transform .15s;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      white-space: nowrap;
+      will-change: box-shadow,transform;
+      font-size: 24px;
+    }
+
+    .button-29:focus {
+      box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    }
+
+    .button-29:hover {
+      box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+      transform: translateY(-2px);
+    }
+
+    .button-29:active {
+      box-shadow: #3c4fe0 0 3px 7px inset;
+      transform: translateY(2px);
+    }
+
+    .solid-rectangle {
+        width: 310px; /* Adjust width as needed */
+        height: 60px; /* Adjust height as needed */
+        background-color: #000; /* Solid color for the rectangle */
+        position: fixed;
+        top: 0;
+        right: 0;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+
     </style>
 </head>
 
 <body>
     {% load socialaccount %}
     {% if user.is_authenticated %}
+    {% include 'navbar.html' %}
+    {% csrf_token %}
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
-        <p class="description">A workout for your brain!</p>
+        <p class="description">Find what others are listening to</p>
     </div>
     <div class="container"></div>
 
     <script>
-        const numRows = 4;
+        const playlists = ['Playlist #1', 'Playlist #2', 'Playlist #3', 'Playlist #4'];
         const container = document.querySelector('.container');
 
-        for (let i = 0; i < numRows; i++) {
-            const row = document.createElement('div');
-            row.classList.add('row');
+        const row = document.createElement('div');
+        row.classList.add('row');
 
-            for (let j = 0; j < 4; j++) {
-                const col = document.createElement('div');
-                col.classList.add('col');
+        playlists.forEach(playlist => {
+            const col = document.createElement('div');
+            col.classList.add('col-md-4');
 
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.style.width = '18rem';
 
-                const box = document.createElement('div');
-                box.classList.add('musicbox');
+            // Fetch playlist images (replace this with your actual image URLs)
+            const playlistImages = JSON.parse("{{ images|safe|escapejs }}");
 
+            // Create container for image collage
+            const imageCollage = document.createElement('div');
+            imageCollage.classList.add('image-collage');
 
-                const playlistName = document.createElement('div');
-                playlistName.classList.add('text');
-                playlistName.textContent = 'Playlist Name';
+            // Add images to the image collage
+            playlistImages.slice(0, 4).forEach(imageUrl => {
+                const imageItem = document.createElement('div');
+                imageItem.classList.add('image-item');
 
-                const username = document.createElement('div');
-                username.classList.add('text');
-                username.textContent = 'Username';
+                const image = document.createElement('img');
+                image.src = imageUrl;
+                image.alt = 'Playlist Image';
 
+                imageItem.appendChild(image);
+                imageCollage.appendChild(imageItem);
+            });
 
-                col.appendChild(box);
-                col.appendChild(playlistName);
-                col.appendChild(username);
+            const cardBody = document.createElement('div');
+            cardBody.classList.add('card-body');
 
+            const cardTitle = document.createElement('h5');
+            cardTitle.classList.add('card-title');
+            cardTitle.textContent = playlist;
 
-                row.appendChild(col);
-            }
+            const cardText = document.createElement('p');
+            cardText.classList.add('card-text');
+            cardText.textContent = 'Author Name';
 
+            const heartIcon = document.createElement('span');
+            heartIcon.classList.add('heart-icon');
+            heartIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                      <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.920 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                    </svg>`;
 
-            container.appendChild(row);
-        }
+            cardBody.appendChild(heartIcon);
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            card.appendChild(imageCollage); // Append image collage container
+            card.appendChild(cardBody);
+            col.appendChild(card);
+            row.appendChild(col);
+        });
+
+        container.appendChild(row);
     </script>
     {% else %}
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+        <video autoplay muted loop id="video-background">
+            <source src="static/images/exercise.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+        <div class="solid-rectangle"></div>
+        <div class="rounded-box">
+            <img src="static/images/image2.png" alt="FitBeats Logo">
+            <br> <br>
+            <span class="brand-text">FitBeats</span>
+            <br> <br>
+            <a class="button-29" role="button" href="{% provider_login_url 'google' %}">Let's Get Started!</a>
+        </div>
     {% endif %}
 </body>
 </html>
