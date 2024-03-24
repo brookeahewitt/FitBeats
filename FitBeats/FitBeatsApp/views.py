@@ -84,21 +84,21 @@ def get_recommendations(token, genres, min_tempo, max_tempo):
 
 
 
-token = get_token()
-playlist = generate_playlist(10, 10)
-
-images = []
-
-for track in playlist:
-    print(track["name"], track["duration_ms"])
-    images.append(track["album"]["images"][0]["url"])
-
-images = images[:4]
+# token = get_token()
+# playlist = generate_playlist(10, 10)
+#
+# images = []
+#
+# for track in playlist:
+#     print(track["name"], track["duration_ms"])
+#     images.append(track["album"]["images"][0]["url"])
+#
+# images = images[:4]
 
 
 def index(request):
-    images_json = json.dumps(images)
-    return render(request, 'index.html', {'images': images_json})
+    # images_json = json.dumps(images)
+    return render(request, 'index.html', {'request': request})
 
 
 def exercises(request):

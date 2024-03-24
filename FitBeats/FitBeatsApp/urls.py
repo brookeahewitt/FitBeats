@@ -17,6 +17,12 @@ urlpatterns = [
     path('yoga', views.yoga, name='yoga'),
     path('calisthenics', views.calisthenics, name='calisthenics'),
     path('stretching', views.stretching, name='stretching'),
-    path('completeWorkout', views.completeWorkout, name="completeWorkout")
+    path('completeWorkout', views.completeWorkout, name="completeWorkout"),
+    path('cardio', views.cardio, name="cardio"),
+    path('weightLifting', views.weight_lifting, name='weightLifting'),
+    path('yoga', views.yoga, name='yoga'),
+    path('calisthenics', views.calisthenics, name='calisthenics'),
+    path('stretching', views.stretching, name='stretching'),
+    path('pilates', views.pilates, name='pilates'),
 
 ]
