@@ -91,13 +91,24 @@
 
     .brand-text {
         font-size: 18px;
+        height: 100vh; /* Adjust as needed */
+    }
+
+    .logo {
+        width: 50px; /* Adjust size as needed */
+        height: auto;
+        margin-right: 10px; /* Adjust spacing between image and text */
+    }
+
+    .brand-text {
+        font-size: 18px; /* Adjust font size as needed */
     }
 
     .login-button {
-    display: block;
-    margin-top: 10px;
-    text-align: center;
-    font-size: 16px;
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        font-size: 16px;
     }
 
     .rounded-box {
@@ -191,6 +202,7 @@
     {% if user.is_authenticated %}
     {% include 'navbar.html' %}
     {% csrf_token %}
+    </form>
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Explore</h1>
         <p class="description">Find what others are listening to</p>
