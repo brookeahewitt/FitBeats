@@ -123,6 +123,42 @@
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Generate</h1>
         <p class="description">Create your next workout playlist</p>
+        <div class="confirm-button-container">
+            <select id="musicGenre">
+                <option value="" disabled selected>Select genre</option>
+                <option value="country">Country</option>
+                <option value="pop">Pop</option>
+                <option value="rock">Rock</option>
+                <option value="hiphop">Hip Hop</option>
+                <option value="dance">Dance</option>
+                <option value="indian">Indian</option>
+                <option value="iranian">Iranian</option>
+                <option value="jazz">Jazz</option>
+                <option value="k-pop">K-Pop</option>
+                <option value="latin">Latin</option>
+                <option value="metal">Metal</option>
+                <!-- Add more genres here -->
+            </select>
+            <button id="confirmButton" class="btn btn-primary" onclick="disableGenre()">Confirm</button>
+        </div>
+
+        <script>
+            let selectedGenre = ''; // Initialize selectedGenre variable
+
+            function disableGenre() {
+                const dropdown = document.getElementById("musicGenre");
+                dropdown.disabled = true;
+
+                selectedGenre = dropdown.value; // Update selectedGenre variable
+                // const playlistTitle = document.getElementById("playlist_title").value; // Get the playlist title
+
+                const cards = document.querySelectorAll('.clickable');
+                cards.forEach(card => {
+                    const href = card.getAttribute('href');
+                    card.setAttribute('href', `${href}?genre=${selectedGenre}`); // Update href attribute with genre and playlist_title
+                });
+            }
+        </script>
 
     </div>
     <div class="container">

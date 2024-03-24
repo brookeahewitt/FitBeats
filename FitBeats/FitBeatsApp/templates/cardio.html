@@ -184,7 +184,6 @@
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Cardio</h1>
         <p class="description">Customize your workout</p>
         <input type="text" name="playlist_name" placeholder="Insert playlist name">
-        {% include 'genre.html' %}
     </div>
    <div class="container">
     <h1 style="font-family: Quicksand, sans-serif">Types of Exercise</h1>
@@ -242,6 +241,7 @@
 
         <!-- Hidden input for selected exercises -->
         <input type="hidden" id="selectedExercises" name="selectedExercises">
+        <input type="hidden" id="selectedGenre" name="selectedGenre" value="{{ genre }}">
 
       <div class="button-container">
         <button id="addButton" class="orange-button" >Add</button>
