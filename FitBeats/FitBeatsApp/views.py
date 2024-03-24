@@ -9,6 +9,8 @@ import base64
 from requests import post, get
 import json
 
+from .models import Playlist, Workout_Segment, Entire_Workout, Exercise
+
 load_dotenv()
 
 client_id = os.getenv("CLIENT_ID")
@@ -143,7 +145,28 @@ def submit_workout(request):
         # Process the form data
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
-        selected_exercises = request.POST.getlist('selectedExercises')
+        selected_exercises_json = request.POST.getlist('selectedExercises')
+        selected_exercises = json.loads(selected_exercises_json)
+
+        playlist = Playlist.objects.create(
+            name="Custom Playlist",
+        )
+
+        for exercisename in selected_exercises:
+            exercise = Exercise.objects.get_or_create(exercise_name=exercisename)
+            segment = Workout_Segment.objects.create(
+                exercise_names=exercise,
+                workout_type="Custom",
+                duration=duration,
+                intensity=intensity
+            )
+            # Add the segment to the playlist
+            playlist.songs.add(segment)
+
+            # Create an Entire_Workout instance and associate it with the playlist
+        entire_workout = Entire_Workout.objects.create(
+            playlist=playlist
+        )
 
         # Perform any necessary actions (e.g., save data to the database)
         # Example: Save the form data to the database
