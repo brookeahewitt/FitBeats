@@ -108,11 +108,36 @@ def exercises(request):
 def generate(request):
     return render(request, 'generate.html', {'request': request})
 
+def cardio(request):
+    return render(request, 'cardio.html')
+
+def weight_lifting(request):
+    return render(request, 'weight_lifting.html')
+
+def pilates(request):
+    return render(request, 'pilates.html')
+
+def yoga(request):
+    return render(request, 'yoga.html')
+
+def calisthenics(request):
+    return render(request, 'calisthenics.html')
+
+def stretching(request):
+    return render(request, 'stretching.html')
+
+
 def info(request):
     return render(request, 'info.html', {'request': request})
+
 def logout_view(request):
     logout(request)
     return redirect('index')
 
+
 def completeWorkout(request):
     return render(request, 'completeWorkout.html', {'request': request})
+
+def submit_workout(request):
+    return render(request, 'generate.html')
+
