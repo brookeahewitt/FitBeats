@@ -171,9 +171,11 @@
 </head>
 {% include 'navbar.html' %}
 <body>
+  <form id="workoutForm" action="/submit_workout/" method="post">
     <div class="box">
         <h1 style="font-size: 50px; font-family: Quicksand, sans-serif">Calisthenics</h1>
         <p class="description">Customize your workout</p>
+        <input type="text" name="playlist_name" placeholder="Insert playlist name">
     </div>
    <div class="container">
     <h1 style="font-family: Quicksand, sans-serif">Types of Exercise</h1>
@@ -239,7 +241,6 @@
     </div>
 </div>
    </div>
-  <form id="workoutForm" action="/submit_workout/" method="post">
       {% csrf_token %}
     <div id="duration" class="fade-content">
     <!-- Duration input -->

@@ -205,6 +205,8 @@ def submit_workout(request):
         duration = request.POST.get('duration')
         intensity = request.POST.get('intensity')
         genre = request.POST.get('selectedGenre')
+        playlist_name = request.POST.get('playlist_name')
+        print("PLAYLIST NAME:", playlist_name)
         num_breaks = int(request.POST.get('num_breaks'))
         selected_exercises = request.POST.getlist('selectedExercises')
         selected_exercises_string = selected_exercises[0]  # Get the string from the list
@@ -212,7 +214,7 @@ def submit_workout(request):
         # Create a new playlist
         token = get_token()
         playlist = generate_playlist(int(duration), 10, token)  # Adjust parameters as needed
-        songs, created_playlist = make_songs(playlist, "Custom Playlist")
+        songs, created_playlist = make_songs(playlist, playlist_name)
 
         entire_workout = Entire_Workout.objects.create(
             playlist=created_playlist,
@@ -249,5 +251,5 @@ def submit_workout(request):
 
 
 def activity(request):
-    return render(request, 'activity.html', {'request': request})
+    return render(request, 'activity.html')
 
